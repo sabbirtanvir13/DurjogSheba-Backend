@@ -26,7 +26,7 @@ model User {
 
   phoneNumber    String
 
-  // role           Role            @default(DONOR)
+  role           Role            @default(DONOR)
 
   isVerified     Boolean         @default(false)
 
