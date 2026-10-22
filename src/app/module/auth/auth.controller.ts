@@ -5,8 +5,15 @@ import { sendResponse } from "../../utils/sendResponse";
 import type { IRequestUser } from "./auth.interface";
 import { AuthService } from "./auth.service";
 
+
+
+
+
+
+
 const registerUser = catchAsync(async (req: Request, res: Response) => {
-    const payload = req.body;
+    const payload = (req.body);
+   
     const result = await AuthService.registerUser(payload);
 
     const { accessToken, refreshToken, user } = result;
