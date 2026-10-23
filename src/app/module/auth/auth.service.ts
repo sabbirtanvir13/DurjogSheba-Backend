@@ -4,10 +4,14 @@ import config from "../../config";
 import { prisma } from "../../lib/prisma";
 import { jwtUtils } from "../../utils/jwt";
 import type {
+    IForgotPasswordPayload,
     ILoginUserPayload,
     IRegisterUserPayload,
     IRequestUser,
+    IResetPasswordPayload,
 } from "./auth.interface";
+import { redisClient } from "../../lib/redis";
+import crypto from "crypto";
 
 const registerUser = async (payload: IRegisterUserPayload) => {
     const { name, password, phoneNumber } = payload;
@@ -105,7 +109,6 @@ const loginUser = async (payload: ILoginUserPayload) => {
     };
 };
 
-
 const googleLogin = async (payload: { email: string; name: string }) => {
     const email = payload.email.trim().toLowerCase();
     const name = payload.name;
@@ -114,10 +117,9 @@ const googleLogin = async (payload: { email: string; name: string }) => {
         where: { email },
     });
 
-    
     if (!user) {
-   const dummyPassword = Math.random().toString(36).slice(-8);
-    const hashedPassword = await bcrypt.hash(dummyPassword, 10);
+        const dummyPassword = Math.random().toString(36).slice(-8);
+        const hashedPassword = await bcrypt.hash(dummyPassword, 10);
 
         user = await prisma.user.create({
             data: {
@@ -222,10 +224,59 @@ const refreshToken = async (token: string) => {
     };
 };
 
+const ForgetPasswrod = async (payload: IForgotPasswordPayload) => {
+    const email = payload.email.trim().toLowerCase();
+    const isUserExist = await prisma.user.findUnique({
+        where: { email },
+    });
+
+    if (!isUserExist) {
+        throw new Error("User not found");
+    }
+
+    const otp = crypto.randomInt(100000,1000000).toString();
+     const key=`forget_passwrod_Otp${isUserExist.email}`
+    await redisClient.set(key,otp,{
+        expiration:{
+            type:"EX",
+            value:60*5
+        }
+    })
+};
+
+const ResetPasswrod = async (payload: IResetPasswordPayload) => {
+    const { email,otp, newPassword } = payload;
+    const normalizedEmail = email.trim().toLowerCase();
+
+    const isUserExist = await prisma.user.findUnique({
+        where: { email: normalizedEmail },
+    });
+
+    if (!isUserExist) {
+        throw new Error("User not found");
+    }
+
+    const saltRounds = Number(config.bcrypt_salt_rounds) || 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    await prisma.user.update({
+        where: { email: normalizedEmail },
+        data: {
+            password: hashedPassword,
+        },
+    });
+
+    return {
+        message: "Password reset successful",
+    };
+};
+
 export const AuthService = {
     registerUser,
     loginUser,
     googleLogin,
     getMe,
     refreshToken,
+    ForgetPasswrod,
+    ResetPasswrod,
 };

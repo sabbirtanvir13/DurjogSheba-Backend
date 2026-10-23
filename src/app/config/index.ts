@@ -21,4 +21,8 @@ export default {
 	jwt_access_expires_in:
 		process.env.JWT_ACCESS_EXPIRES_IN || process.env.JWT_EXPIRES_IN || "1d",
 	jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
+	redis_user: process.env.REDIS_USER!,
+	redis_password: process.env.REDIS_PASSWORD!,
+	redis_host: process.env.REDIS_HOST!,
+	redis_port: process.env.REDIS_PORT!
 };

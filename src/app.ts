@@ -12,7 +12,8 @@ import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 import { notFound } from "./app/middleware/notFound";
 import { AuthRoutes } from "./app/module/auth/auth.route";
 import z from "zod";
-
+import { redisClient } from "./app/lib/redis";
+import crypto from "crypto"
 const app: Application = express();
 
 app.use(
@@ -34,34 +35,23 @@ app.use("/api/v1/auth", AuthRoutes);
 
 
 
-app.post("/zod", async (req: Request, res: Response, next : NextFunction) => {
+app.get("/test", async (req: Request, res: Response, next : NextFunction) => {
 
 	try {
-		const UserZodSchema = z.object({
-			   name: z.string(),
-				email: z.string().email(),
-				password: z.string(),
-				phoneNumber: z.string(),
-			
-		})
+	     
+		// await redisClient.set("forget passwrod otp","121324",{
+        //    expiration:{
+		// 	type:"EX",
+		// 	value:600
+		//    }
+		// })
 
-
-		const payload = req.body;
-
-		const result = UserZodSchema.safeParse(payload)
-
-		if(!result.success){
-			console.log(result.error);
-		}
-		if(result.success){
-			console.log(result.data);
-		}
-
+		const Otp =crypto.randomInt(100000,1000000)
 
 		res.status(httpStatus.OK).json({
 			success: true,
 			message: "Welcome to  DhurjogSheba  Backend",
-			data : result
+			data : Otp
 		});
 	} catch (error) {
 		console.log(error);

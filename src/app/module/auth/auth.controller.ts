@@ -5,15 +5,8 @@ import { sendResponse } from "../../utils/sendResponse";
 import type { IRequestUser } from "./auth.interface";
 import { AuthService } from "./auth.service";
 
-
-
-
-
-
-
 const registerUser = catchAsync(async (req: Request, res: Response) => {
-    const payload = (req.body);
-   
+    const payload = req.body;
     const result = await AuthService.registerUser(payload);
 
     const { accessToken, refreshToken, user } = result;
@@ -52,13 +45,13 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
         httpOnly: true,
         secure: false,
         sameSite: "none",
-        maxAge: 1000 * 60 * 60 * 24, // 24 hours
+        maxAge: 1000 * 60 * 60 * 24,
     });
     res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: false,
         sameSite: "none",
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+        maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
     sendResponse(res, {
@@ -73,7 +66,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const googleLogin = catchAsync(async (req: Request, res: Response) => {
-    const payload = req.body; // Expecting { email, name } from frontend google auth response
+    const payload = req.body;
 
     const result = await AuthService.googleLogin(payload);
     const { accessToken, refreshToken, user } = result;
@@ -150,10 +143,38 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const ForgetPasswrod = catchAsync(async (req: Request, res: Response) => {
+    const payload = req.body;
+
+    const result = await AuthService.ForgetPasswrod(payload);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "OTP generated successfully",
+        data: result,
+    });
+});
+
+const ResetPasswrod = catchAsync(async (req: Request, res: Response) => {
+    const payload = req.body;
+
+    const result = await AuthService.ResetPasswrod(payload);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Password reset successfully",
+        data: result,
+    });
+});
+
 export const AuthController = {
     registerUser,
     loginUser,
     googleLogin,
     getMe,
     refreshToken,
+    ForgetPasswrod,
+    ResetPasswrod,
 };
