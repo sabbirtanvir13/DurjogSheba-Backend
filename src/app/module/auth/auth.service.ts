@@ -12,6 +12,9 @@ import type {
 } from "./auth.interface";
 import { redisClient } from "../../lib/redis";
 import crypto from "crypto";
+import { transporter } from "../../lib/nodemailer";
+import ejs from "ejs";
+import path from "path";
 
 const registerUser = async (payload: IRegisterUserPayload) => {
     const { name, password, phoneNumber } = payload;
@@ -126,8 +129,8 @@ const googleLogin = async (payload: { email: string; name: string }) => {
                 name,
                 email,
                 password: hashedPassword,
-                phoneNumber: "", 
-                isVerified: true, 
+                phoneNumber: "",
+                isVerified: true,
             },
         });
     }
@@ -234,18 +237,39 @@ const ForgetPasswrod = async (payload: IForgotPasswordPayload) => {
         throw new Error("User not found");
     }
 
-    const otp = crypto.randomInt(100000,1000000).toString();
-     const key=`forget_passwrod_Otp${isUserExist.email}`
-    await redisClient.set(key,otp,{
-        expiration:{
-            type:"EX",
-            value:60*5
-        }
-    })
+    const otp = crypto.randomInt(100000, 1000000).toString();
+    const expirationSeconds = 60 * 5; // 5 minutes
+    const key = `forget-password-otp:${isUserExist.email.trim().toLowerCase()}`;
+
+    // রেডিসে ওটিপি সেভ করার সঠিক পদ্ধতি
+    await redisClient.set(key, otp, {
+        EX: expirationSeconds,
+    });
+
+    const tempatePath = path.join(process.cwd(), "src/app/templates/forgot-password.ejs");
+
+    const templateData = {
+        name: isUserExist.name,
+        otp,
+        expirationMinutes: expirationSeconds / 60,
+    };
+
+    const html = await ejs.renderFile(tempatePath, templateData);
+
+    await transporter.sendMail({
+        from: config.smtp_sender,
+        to: isUserExist.email,
+        subject: "Forget Password",
+        html,
+    });
+
+    return {
+        message: "OTP sent to your email successfully",
+    };
 };
 
 const ResetPasswrod = async (payload: IResetPasswordPayload) => {
-    const { email,otp, newPassword } = payload;
+    const { email, otp, newPassword } = payload;
     const normalizedEmail = email.trim().toLowerCase();
 
     const isUserExist = await prisma.user.findUnique({
@@ -255,20 +279,53 @@ const ResetPasswrod = async (payload: IResetPasswordPayload) => {
     if (!isUserExist) {
         throw new Error("User not found");
     }
+    const key = `forget-password-otp:${isUserExist.email}`
 
-    const saltRounds = Number(config.bcrypt_salt_rounds) || 10;
-    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+    const redisOtp = await redisClient.get(key)
+
+    if (!redisOtp) {
+        throw new Error("Invalid OTP")
+    }
+
+    if (redisOtp !== otp) {
+        throw new Error("OTP Does Not Match")
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, Number(config.bcrypt_salt_rounds));
 
     await prisma.user.update({
-        where: { email: normalizedEmail },
-        data: {
-            password: hashedPassword,
+        where: {
+            email: isUserExist.email
         },
+        data: {
+            password: hashedNewPassword
+        }
     });
 
-    return {
-        message: "Password reset successful",
-    };
+    await redisClient.del([key]);
+     const expirationSeconds = 60 * 5;
+	const tempatePath = path.join(process.cwd(), "src/app/templates/reset-password-success.ejs")
+
+     const templateData = {
+		name: isUserExist.name,
+		otp,
+		expirationMinutes: expirationSeconds / 60,
+	
+	}
+
+	const html = await ejs.renderFile(tempatePath, templateData)
+
+
+
+    await transporter.sendMail({
+        from: config.smtp_sender,
+        to: isUserExist.email,
+        subject: "Reset Password",
+        html
+    })
+
+
+
 };
 
 export const AuthService = {
