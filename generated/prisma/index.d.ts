@@ -1529,6 +1529,8 @@ export namespace Prisma {
     phoneNumber: string | null
     role: $Enums.Role | null
     isVerified: boolean | null
+    imageUrl: string | null
+    imagePublicId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1541,6 +1543,8 @@ export namespace Prisma {
     phoneNumber: string | null
     role: $Enums.Role | null
     isVerified: boolean | null
+    imageUrl: string | null
+    imagePublicId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1553,6 +1557,8 @@ export namespace Prisma {
     phoneNumber: number
     role: number
     isVerified: number
+    imageUrl: number
+    imagePublicId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1567,6 +1573,8 @@ export namespace Prisma {
     phoneNumber?: true
     role?: true
     isVerified?: true
+    imageUrl?: true
+    imagePublicId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1579,6 +1587,8 @@ export namespace Prisma {
     phoneNumber?: true
     role?: true
     isVerified?: true
+    imageUrl?: true
+    imagePublicId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1591,6 +1601,8 @@ export namespace Prisma {
     phoneNumber?: true
     role?: true
     isVerified?: true
+    imageUrl?: true
+    imagePublicId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1676,6 +1688,8 @@ export namespace Prisma {
     phoneNumber: string
     role: $Enums.Role
     isVerified: boolean
+    imageUrl: string | null
+    imagePublicId: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1705,6 +1719,8 @@ export namespace Prisma {
     phoneNumber?: boolean
     role?: boolean
     isVerified?: boolean
+    imageUrl?: boolean
+    imagePublicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     donor?: boolean | User$donorArgs<ExtArgs>
@@ -1722,6 +1738,8 @@ export namespace Prisma {
     phoneNumber?: boolean
     role?: boolean
     isVerified?: boolean
+    imageUrl?: boolean
+    imagePublicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1734,6 +1752,8 @@ export namespace Prisma {
     phoneNumber?: boolean
     role?: boolean
     isVerified?: boolean
+    imageUrl?: boolean
+    imagePublicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1746,11 +1766,13 @@ export namespace Prisma {
     phoneNumber?: boolean
     role?: boolean
     isVerified?: boolean
+    imageUrl?: boolean
+    imagePublicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "phoneNumber" | "role" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "phoneNumber" | "role" | "isVerified" | "imageUrl" | "imagePublicId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     donor?: boolean | User$donorArgs<ExtArgs>
     shelters?: boolean | User$sheltersArgs<ExtArgs>
@@ -1777,6 +1799,8 @@ export namespace Prisma {
       phoneNumber: string
       role: $Enums.Role
       isVerified: boolean
+      imageUrl: string | null
+      imagePublicId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2213,6 +2237,8 @@ export namespace Prisma {
     readonly phoneNumber: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
+    readonly imageUrl: FieldRef<"User", 'String'>
+    readonly imagePublicId: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3871,6 +3897,7 @@ export namespace Prisma {
     coordinatorId: number
     createdAt: number
     updatedAt: number
+    images: number
     _all: number
   }
 
@@ -3928,6 +3955,7 @@ export namespace Prisma {
     coordinatorId?: true
     createdAt?: true
     updatedAt?: true
+    images?: true
     _all?: true
   }
 
@@ -4030,6 +4058,7 @@ export namespace Prisma {
     coordinatorId: string
     createdAt: Date
     updatedAt: Date
+    images: string[]
     _count: ShelterCountAggregateOutputType | null
     _avg: ShelterAvgAggregateOutputType | null
     _sum: ShelterSumAggregateOutputType | null
@@ -4064,6 +4093,7 @@ export namespace Prisma {
     coordinatorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    images?: boolean
     coordinator?: boolean | UserDefaultArgs<ExtArgs>
     reliefNeeds?: boolean | Shelter$reliefNeedsArgs<ExtArgs>
     rescueRequests?: boolean | Shelter$rescueRequestsArgs<ExtArgs>
@@ -4083,6 +4113,7 @@ export namespace Prisma {
     coordinatorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    images?: boolean
     coordinator?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["shelter"]>
 
@@ -4099,6 +4130,7 @@ export namespace Prisma {
     coordinatorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    images?: boolean
     coordinator?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["shelter"]>
 
@@ -4115,9 +4147,10 @@ export namespace Prisma {
     coordinatorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    images?: boolean
   }
 
-  export type ShelterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "district" | "upazila" | "address" | "capacity" | "currentPeople" | "contactPerson" | "contactPhone" | "coordinatorId" | "createdAt" | "updatedAt", ExtArgs["result"]["shelter"]>
+  export type ShelterOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "district" | "upazila" | "address" | "capacity" | "currentPeople" | "contactPerson" | "contactPhone" | "coordinatorId" | "createdAt" | "updatedAt" | "images", ExtArgs["result"]["shelter"]>
   export type ShelterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     coordinator?: boolean | UserDefaultArgs<ExtArgs>
     reliefNeeds?: boolean | Shelter$reliefNeedsArgs<ExtArgs>
@@ -4151,6 +4184,7 @@ export namespace Prisma {
       coordinatorId: string
       createdAt: Date
       updatedAt: Date
+      images: string[]
     }, ExtArgs["result"]["shelter"]>
     composites: {}
   }
@@ -4589,6 +4623,7 @@ export namespace Prisma {
     readonly coordinatorId: FieldRef<"Shelter", 'String'>
     readonly createdAt: FieldRef<"Shelter", 'DateTime'>
     readonly updatedAt: FieldRef<"Shelter", 'DateTime'>
+    readonly images: FieldRef<"Shelter", 'String[]'>
   }
     
 
@@ -8627,6 +8662,8 @@ export namespace Prisma {
     phoneNumber: 'phoneNumber',
     role: 'role',
     isVerified: 'isVerified',
+    imageUrl: 'imageUrl',
+    imagePublicId: 'imagePublicId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -8659,7 +8696,8 @@ export namespace Prisma {
     contactPhone: 'contactPhone',
     coordinatorId: 'coordinatorId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    images: 'images'
   };
 
   export type ShelterScalarFieldEnum = (typeof ShelterScalarFieldEnum)[keyof typeof ShelterScalarFieldEnum]
@@ -8890,6 +8928,8 @@ export namespace Prisma {
     phoneNumber?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     isVerified?: BoolFilter<"User"> | boolean
+    imageUrl?: StringNullableFilter<"User"> | string | null
+    imagePublicId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     donor?: XOR<DonorNullableScalarRelationFilter, DonorWhereInput> | null
@@ -8906,6 +8946,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     role?: SortOrder
     isVerified?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imagePublicId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     donor?: DonorOrderByWithRelationInput
@@ -8925,6 +8967,8 @@ export namespace Prisma {
     phoneNumber?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     isVerified?: BoolFilter<"User"> | boolean
+    imageUrl?: StringNullableFilter<"User"> | string | null
+    imagePublicId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     donor?: XOR<DonorNullableScalarRelationFilter, DonorWhereInput> | null
@@ -8941,6 +8985,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     role?: SortOrder
     isVerified?: SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    imagePublicId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -8959,6 +9005,8 @@ export namespace Prisma {
     phoneNumber?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    imageUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    imagePublicId?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -9044,6 +9092,7 @@ export namespace Prisma {
     coordinatorId?: StringFilter<"Shelter"> | string
     createdAt?: DateTimeFilter<"Shelter"> | Date | string
     updatedAt?: DateTimeFilter<"Shelter"> | Date | string
+    images?: StringNullableListFilter<"Shelter">
     coordinator?: XOR<UserScalarRelationFilter, UserWhereInput>
     reliefNeeds?: ReliefNeedListRelationFilter
     rescueRequests?: RescueRequestListRelationFilter
@@ -9062,6 +9111,7 @@ export namespace Prisma {
     coordinatorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    images?: SortOrder
     coordinator?: UserOrderByWithRelationInput
     reliefNeeds?: ReliefNeedOrderByRelationAggregateInput
     rescueRequests?: RescueRequestOrderByRelationAggregateInput
@@ -9083,6 +9133,7 @@ export namespace Prisma {
     coordinatorId?: StringFilter<"Shelter"> | string
     createdAt?: DateTimeFilter<"Shelter"> | Date | string
     updatedAt?: DateTimeFilter<"Shelter"> | Date | string
+    images?: StringNullableListFilter<"Shelter">
     coordinator?: XOR<UserScalarRelationFilter, UserWhereInput>
     reliefNeeds?: ReliefNeedListRelationFilter
     rescueRequests?: RescueRequestListRelationFilter
@@ -9101,6 +9152,7 @@ export namespace Prisma {
     coordinatorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    images?: SortOrder
     _count?: ShelterCountOrderByAggregateInput
     _avg?: ShelterAvgOrderByAggregateInput
     _max?: ShelterMaxOrderByAggregateInput
@@ -9124,6 +9176,7 @@ export namespace Prisma {
     coordinatorId?: StringWithAggregatesFilter<"Shelter"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Shelter"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Shelter"> | Date | string
+    images?: StringNullableListFilter<"Shelter">
   }
 
   export type ReliefNeedWhereInput = {
@@ -9388,6 +9441,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     donor?: DonorCreateNestedOneWithoutUserInput
@@ -9404,6 +9459,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     donor?: DonorUncheckedCreateNestedOneWithoutUserInput
@@ -9420,6 +9477,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     donor?: DonorUpdateOneWithoutUserNestedInput
@@ -9436,6 +9495,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     donor?: DonorUncheckedUpdateOneWithoutUserNestedInput
@@ -9452,6 +9513,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9464,6 +9527,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9476,6 +9541,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9561,6 +9628,7 @@ export namespace Prisma {
     contactPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
     coordinator: UserCreateNestedOneWithoutSheltersInput
     reliefNeeds?: ReliefNeedCreateNestedManyWithoutShelterInput
     rescueRequests?: RescueRequestCreateNestedManyWithoutShelterInput
@@ -9579,6 +9647,7 @@ export namespace Prisma {
     coordinatorId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
     reliefNeeds?: ReliefNeedUncheckedCreateNestedManyWithoutShelterInput
     rescueRequests?: RescueRequestUncheckedCreateNestedManyWithoutShelterInput
   }
@@ -9595,6 +9664,7 @@ export namespace Prisma {
     contactPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
     coordinator?: UserUpdateOneRequiredWithoutSheltersNestedInput
     reliefNeeds?: ReliefNeedUpdateManyWithoutShelterNestedInput
     rescueRequests?: RescueRequestUpdateManyWithoutShelterNestedInput
@@ -9613,6 +9683,7 @@ export namespace Prisma {
     coordinatorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
     reliefNeeds?: ReliefNeedUncheckedUpdateManyWithoutShelterNestedInput
     rescueRequests?: RescueRequestUncheckedUpdateManyWithoutShelterNestedInput
   }
@@ -9630,6 +9701,7 @@ export namespace Prisma {
     coordinatorId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
   }
 
   export type ShelterUpdateManyMutationInput = {
@@ -9644,6 +9716,7 @@ export namespace Prisma {
     contactPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
   }
 
   export type ShelterUncheckedUpdateManyInput = {
@@ -9659,6 +9732,7 @@ export namespace Prisma {
     coordinatorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
   }
 
   export type ReliefNeedCreateInput = {
@@ -9964,6 +10038,21 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9998,6 +10087,11 @@ export namespace Prisma {
     none?: DonationWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type ShelterOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -10018,6 +10112,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     role?: SortOrder
     isVerified?: SortOrder
+    imageUrl?: SortOrder
+    imagePublicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10030,6 +10126,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     role?: SortOrder
     isVerified?: SortOrder
+    imageUrl?: SortOrder
+    imagePublicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10042,6 +10140,8 @@ export namespace Prisma {
     phoneNumber?: SortOrder
     role?: SortOrder
     isVerified?: SortOrder
+    imageUrl?: SortOrder
+    imagePublicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10080,6 +10180,24 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -10142,6 +10260,14 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type ReliefNeedListRelationFilter = {
     every?: ReliefNeedWhereInput
     some?: ReliefNeedWhereInput
@@ -10165,6 +10291,7 @@ export namespace Prisma {
     coordinatorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    images?: SortOrder
   }
 
   export type ShelterAvgOrderByAggregateInput = {
@@ -10311,21 +10438,6 @@ export namespace Prisma {
     _max?: NestedEnumReliefStatusFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type EnumRescueStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.RescueStatus | EnumRescueStatusFieldRefInput<$PrismaModel>
     in?: $Enums.RescueStatus[] | ListEnumRescueStatusFieldRefInput<$PrismaModel>
@@ -10341,11 +10453,6 @@ export namespace Prisma {
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type RescueRequestCountOrderByAggregateInput = {
@@ -10399,24 +10506,6 @@ export namespace Prisma {
 
   export type RescueRequestSumOrderByAggregateInput = {
     peopleCount?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumRescueStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -10583,6 +10672,10 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -10705,6 +10798,10 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDonorInput, UserUpdateWithoutDonorInput>, UserUncheckedUpdateWithoutDonorInput>
   }
 
+  export type ShelterCreateimagesInput = {
+    set: string[]
+  }
+
   export type UserCreateNestedOneWithoutSheltersInput = {
     create?: XOR<UserCreateWithoutSheltersInput, UserUncheckedCreateWithoutSheltersInput>
     connectOrCreate?: UserCreateOrConnectWithoutSheltersInput
@@ -10745,6 +10842,11 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ShelterUpdateimagesInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type UserUpdateOneRequiredWithoutSheltersNestedInput = {
@@ -10849,10 +10951,6 @@ export namespace Prisma {
     set?: $Enums.RescueStatus
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type ShelterUpdateOneWithoutRescueRequestsNestedInput = {
     create?: XOR<ShelterCreateWithoutRescueRequestsInput, ShelterUncheckedCreateWithoutRescueRequestsInput>
     connectOrCreate?: ShelterCreateOrConnectWithoutRescueRequestsInput
@@ -10925,6 +11023,20 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -10980,6 +11092,34 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -11057,53 +11197,11 @@ export namespace Prisma {
     _max?: NestedEnumReliefStatusFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedEnumRescueStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.RescueStatus | EnumRescueStatusFieldRefInput<$PrismaModel>
     in?: $Enums.RescueStatus[] | ListEnumRescueStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.RescueStatus[] | ListEnumRescueStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumRescueStatusFilter<$PrismaModel> | $Enums.RescueStatus
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumRescueStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -11184,6 +11282,7 @@ export namespace Prisma {
     contactPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
     reliefNeeds?: ReliefNeedCreateNestedManyWithoutShelterInput
     rescueRequests?: RescueRequestCreateNestedManyWithoutShelterInput
   }
@@ -11200,6 +11299,7 @@ export namespace Prisma {
     contactPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
     reliefNeeds?: ReliefNeedUncheckedCreateNestedManyWithoutShelterInput
     rescueRequests?: RescueRequestUncheckedCreateNestedManyWithoutShelterInput
   }
@@ -11345,6 +11445,7 @@ export namespace Prisma {
     coordinatorId?: StringFilter<"Shelter"> | string
     createdAt?: DateTimeFilter<"Shelter"> | Date | string
     updatedAt?: DateTimeFilter<"Shelter"> | Date | string
+    images?: StringNullableListFilter<"Shelter">
   }
 
   export type RescueRequestUpsertWithWhereUniqueWithoutAssignedToInput = {
@@ -11420,6 +11521,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     shelters?: ShelterCreateNestedManyWithoutCoordinatorInput
@@ -11435,6 +11538,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     shelters?: ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
@@ -11466,6 +11571,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     shelters?: ShelterUpdateManyWithoutCoordinatorNestedInput
@@ -11481,6 +11588,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     shelters?: ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
@@ -11496,6 +11605,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     donor?: DonorCreateNestedOneWithoutUserInput
@@ -11511,6 +11622,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     donor?: DonorUncheckedCreateNestedOneWithoutUserInput
@@ -11614,6 +11727,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     donor?: DonorUpdateOneWithoutUserNestedInput
@@ -11629,6 +11744,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     donor?: DonorUncheckedUpdateOneWithoutUserNestedInput
@@ -11696,6 +11813,7 @@ export namespace Prisma {
     contactPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
     coordinator: UserCreateNestedOneWithoutSheltersInput
     rescueRequests?: RescueRequestCreateNestedManyWithoutShelterInput
   }
@@ -11713,6 +11831,7 @@ export namespace Prisma {
     coordinatorId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
     rescueRequests?: RescueRequestUncheckedCreateNestedManyWithoutShelterInput
   }
 
@@ -11744,6 +11863,7 @@ export namespace Prisma {
     contactPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
     coordinator?: UserUpdateOneRequiredWithoutSheltersNestedInput
     rescueRequests?: RescueRequestUpdateManyWithoutShelterNestedInput
   }
@@ -11761,6 +11881,7 @@ export namespace Prisma {
     coordinatorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
     rescueRequests?: RescueRequestUncheckedUpdateManyWithoutShelterNestedInput
   }
 
@@ -11776,6 +11897,7 @@ export namespace Prisma {
     contactPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
     coordinator: UserCreateNestedOneWithoutSheltersInput
     reliefNeeds?: ReliefNeedCreateNestedManyWithoutShelterInput
   }
@@ -11793,6 +11915,7 @@ export namespace Prisma {
     coordinatorId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
     reliefNeeds?: ReliefNeedUncheckedCreateNestedManyWithoutShelterInput
   }
 
@@ -11809,6 +11932,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     donor?: DonorCreateNestedOneWithoutUserInput
@@ -11824,6 +11949,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     donor?: DonorUncheckedCreateNestedOneWithoutUserInput
@@ -11859,6 +11986,7 @@ export namespace Prisma {
     contactPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
     coordinator?: UserUpdateOneRequiredWithoutSheltersNestedInput
     reliefNeeds?: ReliefNeedUpdateManyWithoutShelterNestedInput
   }
@@ -11876,6 +12004,7 @@ export namespace Prisma {
     coordinatorId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
     reliefNeeds?: ReliefNeedUncheckedUpdateManyWithoutShelterNestedInput
   }
 
@@ -11898,6 +12027,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     donor?: DonorUpdateOneWithoutUserNestedInput
@@ -11913,6 +12044,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     donor?: DonorUncheckedUpdateOneWithoutUserNestedInput
@@ -11928,6 +12061,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     donor?: DonorCreateNestedOneWithoutUserInput
@@ -11943,6 +12078,8 @@ export namespace Prisma {
     phoneNumber: string
     role?: $Enums.Role
     isVerified?: boolean
+    imageUrl?: string | null
+    imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     donor?: DonorUncheckedCreateNestedOneWithoutUserInput
@@ -11974,6 +12111,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     donor?: DonorUpdateOneWithoutUserNestedInput
@@ -11989,6 +12128,8 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     donor?: DonorUncheckedUpdateOneWithoutUserNestedInput
@@ -12008,6 +12149,7 @@ export namespace Prisma {
     contactPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    images?: ShelterCreateimagesInput | string[]
   }
 
   export type RescueRequestCreateManyAssignedToInput = {
@@ -12047,6 +12189,7 @@ export namespace Prisma {
     contactPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
     reliefNeeds?: ReliefNeedUpdateManyWithoutShelterNestedInput
     rescueRequests?: RescueRequestUpdateManyWithoutShelterNestedInput
   }
@@ -12063,6 +12206,7 @@ export namespace Prisma {
     contactPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
     reliefNeeds?: ReliefNeedUncheckedUpdateManyWithoutShelterNestedInput
     rescueRequests?: RescueRequestUncheckedUpdateManyWithoutShelterNestedInput
   }
@@ -12079,6 +12223,7 @@ export namespace Prisma {
     contactPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: ShelterUpdateimagesInput | string[]
   }
 
   export type RescueRequestUpdateWithoutAssignedToInput = {

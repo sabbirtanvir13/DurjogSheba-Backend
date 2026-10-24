@@ -128,6 +128,8 @@ exports.Prisma.UserScalarFieldEnum = {
   phoneNumber: 'phoneNumber',
   role: 'role',
   isVerified: 'isVerified',
+  imageUrl: 'imageUrl',
+  imagePublicId: 'imagePublicId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -154,7 +156,8 @@ exports.Prisma.ShelterScalarFieldEnum = {
   contactPhone: 'contactPhone',
   coordinatorId: 'coordinatorId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  images: 'images'
 };
 
 exports.Prisma.ReliefNeedScalarFieldEnum = {

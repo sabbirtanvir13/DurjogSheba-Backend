@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
@@ -18,6 +18,8 @@ model User {
   phoneNumber   String
   role          Role            @default(DONOR)
   isVerified    Boolean         @default(false)
+  imageUrl      String?
+  imagePublicId String?
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 
@@ -56,7 +58,7 @@ model Shelter {
   coordinatorId String
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-
+   images        String[]
   coordinator   User            @relation("VolunteerShelters", fields: [coordinatorId], references: [id])
   reliefNeeds   ReliefNeed[]
   rescueRequests RescueRequest[]

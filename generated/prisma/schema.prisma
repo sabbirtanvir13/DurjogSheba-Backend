@@ -11,15 +11,17 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(uuid())
-  name        String
-  email       String   @unique
-  password    String
-  phoneNumber String
-  role        Role     @default(DONOR)
-  isVerified  Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password      String
+  phoneNumber   String
+  role          Role     @default(DONOR)
+  isVerified    Boolean  @default(false)
+  imageUrl      String?
+  imagePublicId String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   donor          Donor?          @relation("UserProfileDonor")
   shelters       Shelter[]       @relation("VolunteerShelters")
@@ -44,19 +46,19 @@ model Donor {
 }
 
 model Shelter {
-  id            String   @id @default(uuid())
-  name          String
-  district      String
-  upazila       String
-  address       String
-  capacity      Int
-  currentPeople Int      @default(0)
-  contactPerson String
-  contactPhone  String
-  coordinatorId String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
+  id             String          @id @default(uuid())
+  name           String
+  district       String
+  upazila        String
+  address        String
+  capacity       Int
+  currentPeople  Int             @default(0)
+  contactPerson  String
+  contactPhone   String
+  coordinatorId  String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  images         String[]
   coordinator    User            @relation("VolunteerShelters", fields: [coordinatorId], references: [id])
   reliefNeeds    ReliefNeed[]
   rescueRequests RescueRequest[]
