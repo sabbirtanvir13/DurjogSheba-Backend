@@ -13,8 +13,9 @@ import { notFound } from "./app/middleware/notFound";
 import { AuthRoutes } from "./app/module/auth/auth.route";
 import z from "zod";
 import { redisClient } from "./app/lib/redis";
-import crypto from "crypto"
+import crypto from "crypto";
 import { UserRoutes } from "./app/module/user/user.route";
+import { ShelterRoutes } from "./app/module/Shelter/shelter.routes";
 const app: Application = express();
 
 app.use(
@@ -35,37 +36,29 @@ app.use("/api/v1/auth", AuthRoutes);
 
 app.use("/api/v1/user", UserRoutes);
 
+app.use("/api/v1/shelters", ShelterRoutes);
 
-app.get("/test", async (req: Request, res: Response, next : NextFunction) => {
-
+app.get("/test", async (req: Request, res: Response, next: NextFunction) => {
 	try {
-	     
 		// await redisClient.set("forget passwrod otp","121324",{
-        //    expiration:{
+		//    expiration:{
 		// 	type:"EX",
 		// 	value:600
 		//    }
 		// })
 
-		const Otp =crypto.randomInt(100000,1000000)
+		const Otp = crypto.randomInt(100000, 1000000);
 
 		res.status(httpStatus.OK).json({
 			success: true,
 			message: "Welcome to  DhurjogSheba  Backend",
-			data : Otp
+			data: Otp,
 		});
 	} catch (error) {
 		console.log(error);
-		next(error)
+		next(error);
 	}
-})
-
-
-
-
-
-
-
+});
 
 // Basic route
 app.get("/", async (_req: Request, res: Response) => {

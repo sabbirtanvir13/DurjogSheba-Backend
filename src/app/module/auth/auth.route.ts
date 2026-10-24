@@ -8,41 +8,41 @@ import { UserValidation } from "./auth.validation";
 const router = Router();
 
 router.post(
-    "/register", 
-    validateRequest(UserValidation.UsersregisterZodSchema), 
-    AuthController.registerUser
+	"/register",
+	validateRequest(UserValidation.UsersregisterZodSchema),
+	AuthController.registerUser,
 );
 router.post(
-    "/verify-email", 
-    validateRequest(UserValidation.DonorEmailVerifyZodSchema), 
-    AuthController.verifyDonorEmail
+	"/verify-email",
+	validateRequest(UserValidation.DonorEmailVerifyZodSchema),
+	AuthController.verifyDonorEmail,
 );
 
 router.post(
-    "/login", 
-    validateRequest(UserValidation.LoginZodSchema), 
-    AuthController.loginUser
+	"/login",
+	validateRequest(UserValidation.LoginZodSchema),
+	AuthController.loginUser,
 );
 
 router.get(
-    "/me",
-    auth(Role.ADMIN, Role.VOLUNTEER, Role.DONOR),
-    AuthController.getMe
+	"/me",
+	auth(Role.ADMIN, Role.VOLUNTEER, Role.DONOR),
+	AuthController.getMe,
 );
 
 router.post("/refresh-token", AuthController.refreshToken);
 router.post("/google", AuthController.googleLogin);
 
 router.post(
-    "/forget_Passwrod", 
-    validateRequest(UserValidation.ForgetPasswordZodSchema), 
-    AuthController.ForgetPasswrod
+	"/forget_Passwrod",
+	validateRequest(UserValidation.ForgetPasswordZodSchema),
+	AuthController.ForgetPasswrod,
 );
 
 router.post(
-    "/reset_Passwrod", 
-    validateRequest(UserValidation.ResetPasswordZodSchema), 
-    AuthController.ResetPasswrod
+	"/reset_Passwrod",
+	validateRequest(UserValidation.ResetPasswordZodSchema),
+	AuthController.ResetPasswrod,
 );
 
 export const AuthRoutes = router;

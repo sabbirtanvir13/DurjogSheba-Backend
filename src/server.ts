@@ -11,12 +11,12 @@ const main = async () => {
 		await prisma.$connect();
 		console.log("Connected to the database successfully.");
 
-		await redisClient.connect()
-			console.log("Connected to the Redis successfully.");
+		await redisClient.connect();
+		console.log("Connected to the Redis successfully.");
 
-          await transporter.verify()
+		await transporter.verify();
 
-	console.log("Nodemiller Connected successfully.");
+		console.log("Nodemiller Connected successfully.");
 		app.listen(PORT, () => {
 			console.log(`Server is running on port ${PORT}`);
 		});

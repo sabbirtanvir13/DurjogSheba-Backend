@@ -3,16 +3,16 @@ import type z from "zod";
 import { catchAsync } from "../utils/catchAsync";
 
 export const validateRequest = (zodSchema: z.ZodObject<any>) => {
-    return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-        const payload = req.body ?? {};
+	return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+		const payload = req.body ?? {};
 
-        const result = zodSchema.safeParse(payload);
+		const result = zodSchema.safeParse(payload);
 
-        if (!result.success) {
-            throw new Error(result.error.issues[0]?.message || "Validation error");
-        }
+		if (!result.success) {
+			throw new Error(result.error.issues[0]?.message || "Validation error");
+		}
 
-        req.body = result.data;
-        next();
-    });
+		req.body = result.data;
+		next();
+	});
 };

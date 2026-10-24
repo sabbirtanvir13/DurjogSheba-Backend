@@ -59,9 +59,7 @@ export const seedUsers = async () => {
 					` Created ${userData.role} user: ${userData.email} (Password: ${userData.password})`,
 				);
 			} else {
-				console.log(
-					` ${userData.role} user already exists: ${userData.email}`,
-				);
+				console.log(` ${userData.role} user already exists: ${userData.email}`);
 			}
 		}
 
