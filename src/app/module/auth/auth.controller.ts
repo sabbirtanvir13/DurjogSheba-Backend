@@ -7,31 +7,59 @@ import { AuthService } from "./auth.service";
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
     const payload = req.body;
-    const result = await AuthService.registerUser(payload);
+    await AuthService.registerUser(payload);
 
-    const { accessToken, refreshToken, user } = result;
+    
 
-    res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "none",
-        maxAge: 1000 * 60 * 60 * 24, // 24 hours
-    });
-    res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        secure: false,
-        sameSite: "none",
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-    });
+    // res.cookie("accessToken", accessToken, {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: "none",
+    //     maxAge: 1000 * 60 * 60 * 24, // 24 hours
+    // });
+    // res.cookie("refreshToken", refreshToken, {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: "none",
+    //     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+    // });
 
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
         message: "User registered successfully",
+        data: null,
+    });
+});
+const verifyDonorEmail = catchAsync(async (req: Request, res: Response) => {
+    const payload = req.body;
+    const result = await AuthService.verifyDonorEmail(payload);
+
+  	const { accessToken, refreshToken, user, donor } = result;
+
+	res.cookie("accessToken", accessToken, {
+		httpOnly: true,
+		secure: false,
+		sameSite: "none",
+		maxAge: 1000 * 60 * 60 * 24, // 24 hour or 1 day
+	});
+	res.cookie("refreshToken", refreshToken, {
+		httpOnly: true,
+		secure: false,
+		sameSite: "none",
+		maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
+	});
+
+
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: "Email verified successfully",
         data: {
-            accessToken,
-            refreshToken,
-            user,
+        accessToken,
+        refreshToken,
+        user,
+        donor
         },
     });
 });
@@ -171,6 +199,7 @@ const ResetPasswrod = catchAsync(async (req: Request, res: Response) => {
 
 export const AuthController = {
     registerUser,
+    verifyDonorEmail,
     loginUser,
     googleLogin,
     getMe,

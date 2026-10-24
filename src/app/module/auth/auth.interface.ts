@@ -36,3 +36,7 @@ export interface IResetPasswordPayload {
 	newPassword : string;
 	otp : string;
 }
+export interface IVerifyEmailPayload {
+	email: string;
+	otp : string;
+}

@@ -15,6 +15,15 @@ const UsersregisterZodSchema = z.object({
     phoneNumber: z.string({ message: "Phone number is required" }).min(1, "Phone number is required"),
 });
 
+
+
+ const DonorEmailVerifyZodSchema = z.object({
+    
+    email: z.email("Not email!!"),
+     otp: z.string().length(6)
+   
+})
+
 const LoginZodSchema = z.object({
     email: z
         .string({ message: "Email is required" })
@@ -44,6 +53,7 @@ const ResetPasswordZodSchema = z.object({
 
 export const UserValidation = {
     UsersregisterZodSchema,
+    DonorEmailVerifyZodSchema,
     LoginZodSchema,
     ForgetPasswordZodSchema,
     ResetPasswordZodSchema

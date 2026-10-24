@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model Donor
+ * 
+ */
+export type Donor = Prisma.DonorModel
+/**
  * Model Shelter
  * 
  */

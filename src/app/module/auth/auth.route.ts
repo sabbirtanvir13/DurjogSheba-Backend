@@ -12,6 +12,11 @@ router.post(
     validateRequest(UserValidation.UsersregisterZodSchema), 
     AuthController.registerUser
 );
+router.post(
+    "/verify-email", 
+    validateRequest(UserValidation.DonorEmailVerifyZodSchema), 
+    AuthController.verifyDonorEmail
+);
 
 router.post(
     "/login", 

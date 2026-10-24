@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -12,156 +10,106 @@ datasource db {
   provider = "postgresql"
 }
 
-
-
 model User {
+  id            String          @id @default(uuid())
+  name          String
+  email         String          @unique
+  password      String
+  phoneNumber   String
+  role          Role            @default(DONOR)
+  isVerified    Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 
-  id             String          @id @default(uuid())
+  donor             Donor?          @relation("UserProfileDonor")
+  shelters          Shelter[]       @relation("VolunteerShelters")
+  rescueAssigned    RescueRequest[] @relation("AssignedVolunteer")
+  donations         Donation[]
 
-  name           String
-
-  email          String          @unique
-
-  password       String
-
-  phoneNumber    String
-
-  role           Role            @default(DONOR)
-
-  isVerified     Boolean         @default(false)
-
-  createdAt      DateTime        @default(now())
-
-  updatedAt      DateTime        @updatedAt
-    shelters       Shelter[]       @relation("VolunteerShelters")
-
-  rescueAssigned RescueRequest[] @relation("AssignedVolunteer")
-
-  donations      Donation[]
   @@map("users")
-
 }
 
+model Donor {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  name        String
+  email       String   @unique
+  phoneNumber String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
+  user        User     @relation("UserProfileDonor", fields: [userId], references: [id], onDelete: Cascade)
 
+  @@map("donors")
+}
 
 model Shelter {
+  id            String          @id @default(uuid())
+  name          String
+  district      String
+  upazila       String
+  address       String
+  capacity      Int
+  currentPeople Int             @default(0)
+  contactPerson String
+  contactPhone  String
+  coordinatorId String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 
-  id             String          @id @default(uuid())
-
-  name           String
-
-  district       String
-
-  upazila        String
-
-  address        String
-
-  capacity       Int
-
-  currentPeople  Int             @default(0)
-
-  contactPerson  String
-
-  contactPhone   String
-
-  coordinatorId  String
-
-  createdAt      DateTime        @default(now())
-
-  updatedAt      DateTime        @updatedAt
-
-  coordinator    User            @relation("VolunteerShelters", fields: [coordinatorId], references: [id])
-
-  reliefNeeds    ReliefNeed[]
-
+  coordinator   User            @relation("VolunteerShelters", fields: [coordinatorId], references: [id])
+  reliefNeeds   ReliefNeed[]
   rescueRequests RescueRequest[]
 
   @@map("shelters")
-
 }
 
-
 model ReliefNeed {
-
   id           String       @id @default(uuid())
-
   shelterId    String
-
   itemCategory String
-
   itemName     String
-
   quantity     Int
-
   fulfilled    Int          @default(0)
-
   urgency      UrgencyLevel @default(HIGH)
-
   status       ReliefStatus @default(PENDING)
-
   createdAt    DateTime     @default(now())
-
   updatedAt    DateTime     @updatedAt
 
   shelter      Shelter      @relation(fields: [shelterId], references: [id])
 
   @@map("relief_needs")
-
 }
 
 model RescueRequest {
+  id           String       @id @default(uuid())
+  shelterId    String?
+  location     String
+  contactPhone String
+  peopleCount  Int
+  urgency      UrgencyLevel @default(CRITICAL)
+  status       RescueStatus @default(PENDING)
+  assignedToId String?
+  description  String?
+  isDeleted    Boolean      @default(false)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
-  id            String       @id @default(uuid())
-
-  shelterId     String?
-
-  location      String
-
-  contactPhone  String
-
-  peopleCount   Int
-
-  urgency       UrgencyLevel @default(CRITICAL)
-
-  status        RescueStatus @default(PENDING)
-
-  assignedToId  String?
-
-  description   String?
-
-  isDeleted     Boolean      @default(false)
-
-  createdAt     DateTime     @default(now())
-
-  updatedAt     DateTime     @updatedAt
-
-  shelter       Shelter?     @relation(fields: [shelterId], references: [id])
-
-  assignedTo    User?        @relation("AssignedVolunteer", fields: [assignedToId], references: [id])
+  shelter      Shelter?     @relation(fields: [shelterId], references: [id])
+  assignedTo   User?        @relation("AssignedVolunteer", fields: [assignedToId], references: [id])
 
   @@map("rescue_requests")
-
 }
 
 model Donation {
-
   id             String        @id @default(uuid())
-
   donorId        String
-
   amount         Float
-
   currency       String        @default("BDT")
-
   transactionId  String        @unique
-
   paymentGateway String
-
   status         PaymentStatus @default(PENDING)
-
   createdAt      DateTime      @default(now())
-
   updatedAt      DateTime      @updatedAt
 
   donor          User          @relation(fields: [donorId], references: [id])
@@ -170,11 +118,8 @@ model Donation {
 }
 
 enum Role {
-
   VOLUNTEER
-
   DONOR
-
   ADMIN
 }
 

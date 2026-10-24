@@ -398,6 +398,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  Donor: 'Donor',
   Shelter: 'Shelter',
   ReliefNeed: 'ReliefNeed',
   RescueRequest: 'RescueRequest',
@@ -417,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "shelter" | "reliefNeed" | "rescueRequest" | "donation"
+    modelProps: "user" | "donor" | "shelter" | "reliefNeed" | "rescueRequest" | "donation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -492,6 +493,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    Donor: {
+      payload: Prisma.$DonorPayload<ExtArgs>
+      fields: Prisma.DonorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DonorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DonorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>
+        }
+        findFirst: {
+          args: Prisma.DonorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DonorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>
+        }
+        findMany: {
+          args: Prisma.DonorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>[]
+        }
+        create: {
+          args: Prisma.DonorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>
+        }
+        createMany: {
+          args: Prisma.DonorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DonorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>[]
+        }
+        delete: {
+          args: Prisma.DonorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>
+        }
+        update: {
+          args: Prisma.DonorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>
+        }
+        deleteMany: {
+          args: Prisma.DonorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DonorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DonorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>[]
+        }
+        upsert: {
+          args: Prisma.DonorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DonorPayload>
+        }
+        aggregate: {
+          args: Prisma.DonorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDonor>
+        }
+        groupBy: {
+          args: Prisma.DonorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DonorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DonorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DonorCountAggregateOutputType> | number
         }
       }
     }
@@ -843,6 +918,19 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const DonorScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DonorScalarFieldEnum = (typeof DonorScalarFieldEnum)[keyof typeof DonorScalarFieldEnum]
 
 
 export const ShelterScalarFieldEnum = {
@@ -1226,6 +1314,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  donor?: Prisma.DonorOmit
   shelter?: Prisma.ShelterOmit
   reliefNeed?: Prisma.ReliefNeedOmit
   rescueRequest?: Prisma.RescueRequestOmit

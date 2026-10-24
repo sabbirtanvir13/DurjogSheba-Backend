@@ -214,6 +214,7 @@ export type UserWhereInput = {
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  donor?: Prisma.XOR<Prisma.DonorNullableScalarRelationFilter, Prisma.DonorWhereInput> | null
   shelters?: Prisma.ShelterListRelationFilter
   rescueAssigned?: Prisma.RescueRequestListRelationFilter
   donations?: Prisma.DonationListRelationFilter
@@ -229,6 +230,7 @@ export type UserOrderByWithRelationInput = {
   isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  donor?: Prisma.DonorOrderByWithRelationInput
   shelters?: Prisma.ShelterOrderByRelationAggregateInput
   rescueAssigned?: Prisma.RescueRequestOrderByRelationAggregateInput
   donations?: Prisma.DonationOrderByRelationAggregateInput
@@ -247,6 +249,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  donor?: Prisma.XOR<Prisma.DonorNullableScalarRelationFilter, Prisma.DonorWhereInput> | null
   shelters?: Prisma.ShelterListRelationFilter
   rescueAssigned?: Prisma.RescueRequestListRelationFilter
   donations?: Prisma.DonationListRelationFilter
@@ -292,6 +295,7 @@ export type UserCreateInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  donor?: Prisma.DonorCreateNestedOneWithoutUserInput
   shelters?: Prisma.ShelterCreateNestedManyWithoutCoordinatorInput
   rescueAssigned?: Prisma.RescueRequestCreateNestedManyWithoutAssignedToInput
   donations?: Prisma.DonationCreateNestedManyWithoutDonorInput
@@ -307,6 +311,7 @@ export type UserUncheckedCreateInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  donor?: Prisma.DonorUncheckedCreateNestedOneWithoutUserInput
   shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
   rescueAssigned?: Prisma.RescueRequestUncheckedCreateNestedManyWithoutAssignedToInput
   donations?: Prisma.DonationUncheckedCreateNestedManyWithoutDonorInput
@@ -322,6 +327,7 @@ export type UserUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donor?: Prisma.DonorUpdateOneWithoutUserNestedInput
   shelters?: Prisma.ShelterUpdateManyWithoutCoordinatorNestedInput
   rescueAssigned?: Prisma.RescueRequestUpdateManyWithoutAssignedToNestedInput
   donations?: Prisma.DonationUpdateManyWithoutDonorNestedInput
@@ -337,6 +343,7 @@ export type UserUncheckedUpdateInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donor?: Prisma.DonorUncheckedUpdateOneWithoutUserNestedInput
   shelters?: Prisma.ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
   rescueAssigned?: Prisma.RescueRequestUncheckedUpdateManyWithoutAssignedToNestedInput
   donations?: Prisma.DonationUncheckedUpdateManyWithoutDonorNestedInput
@@ -440,6 +447,20 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type UserCreateNestedOneWithoutDonorInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDonorInput, Prisma.UserUncheckedCreateWithoutDonorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDonorInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDonorNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDonorInput, Prisma.UserUncheckedCreateWithoutDonorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDonorInput
+  upsert?: Prisma.UserUpsertWithoutDonorInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDonorInput, Prisma.UserUpdateWithoutDonorInput>, Prisma.UserUncheckedUpdateWithoutDonorInput>
+}
+
 export type UserCreateNestedOneWithoutSheltersInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSheltersInput, Prisma.UserUncheckedCreateWithoutSheltersInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSheltersInput
@@ -484,6 +505,82 @@ export type UserUpdateOneRequiredWithoutDonationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDonationsInput, Prisma.UserUpdateWithoutDonationsInput>, Prisma.UserUncheckedUpdateWithoutDonationsInput>
 }
 
+export type UserCreateWithoutDonorInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  phoneNumber: string
+  role?: $Enums.Role
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shelters?: Prisma.ShelterCreateNestedManyWithoutCoordinatorInput
+  rescueAssigned?: Prisma.RescueRequestCreateNestedManyWithoutAssignedToInput
+  donations?: Prisma.DonationCreateNestedManyWithoutDonorInput
+}
+
+export type UserUncheckedCreateWithoutDonorInput = {
+  id?: string
+  name: string
+  email: string
+  password: string
+  phoneNumber: string
+  role?: $Enums.Role
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
+  rescueAssigned?: Prisma.RescueRequestUncheckedCreateNestedManyWithoutAssignedToInput
+  donations?: Prisma.DonationUncheckedCreateNestedManyWithoutDonorInput
+}
+
+export type UserCreateOrConnectWithoutDonorInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDonorInput, Prisma.UserUncheckedCreateWithoutDonorInput>
+}
+
+export type UserUpsertWithoutDonorInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDonorInput, Prisma.UserUncheckedUpdateWithoutDonorInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDonorInput, Prisma.UserUncheckedCreateWithoutDonorInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDonorInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDonorInput, Prisma.UserUncheckedUpdateWithoutDonorInput>
+}
+
+export type UserUpdateWithoutDonorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shelters?: Prisma.ShelterUpdateManyWithoutCoordinatorNestedInput
+  rescueAssigned?: Prisma.RescueRequestUpdateManyWithoutAssignedToNestedInput
+  donations?: Prisma.DonationUpdateManyWithoutDonorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDonorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phoneNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shelters?: Prisma.ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
+  rescueAssigned?: Prisma.RescueRequestUncheckedUpdateManyWithoutAssignedToNestedInput
+  donations?: Prisma.DonationUncheckedUpdateManyWithoutDonorNestedInput
+}
+
 export type UserCreateWithoutSheltersInput = {
   id?: string
   name: string
@@ -494,6 +591,7 @@ export type UserCreateWithoutSheltersInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  donor?: Prisma.DonorCreateNestedOneWithoutUserInput
   rescueAssigned?: Prisma.RescueRequestCreateNestedManyWithoutAssignedToInput
   donations?: Prisma.DonationCreateNestedManyWithoutDonorInput
 }
@@ -508,6 +606,7 @@ export type UserUncheckedCreateWithoutSheltersInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  donor?: Prisma.DonorUncheckedCreateNestedOneWithoutUserInput
   rescueAssigned?: Prisma.RescueRequestUncheckedCreateNestedManyWithoutAssignedToInput
   donations?: Prisma.DonationUncheckedCreateNestedManyWithoutDonorInput
 }
@@ -538,6 +637,7 @@ export type UserUpdateWithoutSheltersInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donor?: Prisma.DonorUpdateOneWithoutUserNestedInput
   rescueAssigned?: Prisma.RescueRequestUpdateManyWithoutAssignedToNestedInput
   donations?: Prisma.DonationUpdateManyWithoutDonorNestedInput
 }
@@ -552,6 +652,7 @@ export type UserUncheckedUpdateWithoutSheltersInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donor?: Prisma.DonorUncheckedUpdateOneWithoutUserNestedInput
   rescueAssigned?: Prisma.RescueRequestUncheckedUpdateManyWithoutAssignedToNestedInput
   donations?: Prisma.DonationUncheckedUpdateManyWithoutDonorNestedInput
 }
@@ -566,6 +667,7 @@ export type UserCreateWithoutRescueAssignedInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  donor?: Prisma.DonorCreateNestedOneWithoutUserInput
   shelters?: Prisma.ShelterCreateNestedManyWithoutCoordinatorInput
   donations?: Prisma.DonationCreateNestedManyWithoutDonorInput
 }
@@ -580,6 +682,7 @@ export type UserUncheckedCreateWithoutRescueAssignedInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  donor?: Prisma.DonorUncheckedCreateNestedOneWithoutUserInput
   shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
   donations?: Prisma.DonationUncheckedCreateNestedManyWithoutDonorInput
 }
@@ -610,6 +713,7 @@ export type UserUpdateWithoutRescueAssignedInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donor?: Prisma.DonorUpdateOneWithoutUserNestedInput
   shelters?: Prisma.ShelterUpdateManyWithoutCoordinatorNestedInput
   donations?: Prisma.DonationUpdateManyWithoutDonorNestedInput
 }
@@ -624,6 +728,7 @@ export type UserUncheckedUpdateWithoutRescueAssignedInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donor?: Prisma.DonorUncheckedUpdateOneWithoutUserNestedInput
   shelters?: Prisma.ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
   donations?: Prisma.DonationUncheckedUpdateManyWithoutDonorNestedInput
 }
@@ -638,6 +743,7 @@ export type UserCreateWithoutDonationsInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  donor?: Prisma.DonorCreateNestedOneWithoutUserInput
   shelters?: Prisma.ShelterCreateNestedManyWithoutCoordinatorInput
   rescueAssigned?: Prisma.RescueRequestCreateNestedManyWithoutAssignedToInput
 }
@@ -652,6 +758,7 @@ export type UserUncheckedCreateWithoutDonationsInput = {
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  donor?: Prisma.DonorUncheckedCreateNestedOneWithoutUserInput
   shelters?: Prisma.ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
   rescueAssigned?: Prisma.RescueRequestUncheckedCreateNestedManyWithoutAssignedToInput
 }
@@ -682,6 +789,7 @@ export type UserUpdateWithoutDonationsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donor?: Prisma.DonorUpdateOneWithoutUserNestedInput
   shelters?: Prisma.ShelterUpdateManyWithoutCoordinatorNestedInput
   rescueAssigned?: Prisma.RescueRequestUpdateManyWithoutAssignedToNestedInput
 }
@@ -696,6 +804,7 @@ export type UserUncheckedUpdateWithoutDonationsInput = {
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  donor?: Prisma.DonorUncheckedUpdateOneWithoutUserNestedInput
   shelters?: Prisma.ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
   rescueAssigned?: Prisma.RescueRequestUncheckedUpdateManyWithoutAssignedToNestedInput
 }
@@ -759,6 +868,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isVerified?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  donor?: boolean | Prisma.User$donorArgs<ExtArgs>
   shelters?: boolean | Prisma.User$sheltersArgs<ExtArgs>
   rescueAssigned?: boolean | Prisma.User$rescueAssignedArgs<ExtArgs>
   donations?: boolean | Prisma.User$donationsArgs<ExtArgs>
@@ -803,6 +913,7 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "phoneNumber" | "role" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  donor?: boolean | Prisma.User$donorArgs<ExtArgs>
   shelters?: boolean | Prisma.User$sheltersArgs<ExtArgs>
   rescueAssigned?: boolean | Prisma.User$rescueAssignedArgs<ExtArgs>
   donations?: boolean | Prisma.User$donationsArgs<ExtArgs>
@@ -814,6 +925,7 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    donor: Prisma.$DonorPayload<ExtArgs> | null
     shelters: Prisma.$ShelterPayload<ExtArgs>[]
     rescueAssigned: Prisma.$RescueRequestPayload<ExtArgs>[]
     donations: Prisma.$DonationPayload<ExtArgs>[]
@@ -1222,6 +1334,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  donor<T extends Prisma.User$donorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$donorArgs<ExtArgs>>): Prisma.Prisma__DonorClient<runtime.Types.Result.GetResult<Prisma.$DonorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   shelters<T extends Prisma.User$sheltersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sheltersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShelterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rescueAssigned<T extends Prisma.User$rescueAssignedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$rescueAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RescueRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   donations<T extends Prisma.User$donationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$donationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DonationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1653,6 +1766,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.donor
+ */
+export type User$donorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Donor
+   */
+  select?: Prisma.DonorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Donor
+   */
+  omit?: Prisma.DonorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DonorInclude<ExtArgs> | null
+  where?: Prisma.DonorWhereInput
 }
 
 /**

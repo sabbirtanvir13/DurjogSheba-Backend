@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to DurjogSheba</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333333;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            background-color: #f4f7f6;
+            padding: 40px 0;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0d9488, #0f766e);
+            padding: 30px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 35px 30px;
+            text-align: center;
+        }
+
+        .content h2 {
+            font-size: 20px;
+            color: #1f2937;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .content p {
+            font-size: 15px;
+            color: #4b5563;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+        }
+
+        .footer {
+            background-color: #f9fafb;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .footer a {
+            color: #0d9488;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-wrapper">
+        <div class="container">
+            <!-- Header Section -->
+            <div class="header">
+                <h1>DurjogSheba</h1>
+                <p>Disaster Relief & Management Platform</p>
+            </div>
+
+            <!-- Main Content -->
+            <div class="content">
+                <h2>Welcome, <%= name %>! 🎉</h2>
+                <p>Thank you for joining <strong>DurjogSheba</strong>. Your account has been created and verified
+                    successfully.</p>
+                <p>You can now participate in relief efforts, track emergency shelters, manage rescue requests, and
+                    contribute to helping those affected by disasters—all in one place.</p>
+            </div>
+
+            <!-- Footer Section -->
+            <div class="footer">
+                <p style="margin: 0 0 5px 0;">Need help? Contact us at <a
+                        href="mailto:support@durjogsheba.com">support@durjogsheba.com</a></p>
+                <p style="margin: 0;">&copy; <%= new Date().getFullYear() %> DurjogSheba. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
