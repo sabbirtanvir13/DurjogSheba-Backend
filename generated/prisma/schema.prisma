@@ -73,6 +73,7 @@ model ReliefNeed {
   itemName     String
   quantity     Int
   fulfilled    Int          @default(0)
+  unit         Unit         @default(PIECE)
   urgency      UrgencyLevel @default(HIGH)
   status       ReliefStatus @default(PENDING)
   createdAt    DateTime     @default(now())
@@ -137,6 +138,14 @@ enum ReliefStatus {
   IN_PROGRESS
   FULFILLED
   CANCELLED
+}
+
+enum Unit {
+  KG
+  LITER
+  PACKET
+  PIECE
+  BOX
 }
 
 enum RescueStatus {

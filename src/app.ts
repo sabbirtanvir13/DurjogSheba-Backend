@@ -16,6 +16,7 @@ import { redisClient } from "./app/lib/redis";
 import crypto from "crypto";
 import { UserRoutes } from "./app/module/user/user.route";
 import { ShelterRoutes } from "./app/module/Shelter/shelter.routes";
+import { ReliefNeedRoutes } from "./app/module/ReliefNeed/reliefNeed.routes";
 const app: Application = express();
 
 app.use(
@@ -37,15 +38,10 @@ app.use("/api/v1/auth", AuthRoutes);
 app.use("/api/v1/user", UserRoutes);
 
 app.use("/api/v1/shelters", ShelterRoutes);
+app.use("/api/v1/relief-needs", ReliefNeedRoutes);
 
 app.get("/test", async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		// await redisClient.set("forget passwrod otp","121324",{
-		//    expiration:{
-		// 	type:"EX",
-		// 	value:600
-		//    }
-		// })
 
 		const Otp = crypto.randomInt(100000, 1000000);
 

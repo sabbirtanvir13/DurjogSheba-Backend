@@ -77,6 +77,17 @@ export const ReliefStatus: {
 export type ReliefStatus = (typeof ReliefStatus)[keyof typeof ReliefStatus]
 
 
+export const Unit: {
+  KG: 'KG',
+  LITER: 'LITER',
+  PACKET: 'PACKET',
+  PIECE: 'PIECE',
+  BOX: 'BOX'
+};
+
+export type Unit = (typeof Unit)[keyof typeof Unit]
+
+
 export const RescueStatus: {
   PENDING: 'PENDING',
   IN_PROGRESS: 'IN_PROGRESS',
@@ -109,6 +120,10 @@ export const UrgencyLevel: typeof $Enums.UrgencyLevel
 export type ReliefStatus = $Enums.ReliefStatus
 
 export const ReliefStatus: typeof $Enums.ReliefStatus
+
+export type Unit = $Enums.Unit
+
+export const Unit: typeof $Enums.Unit
 
 export type RescueStatus = $Enums.RescueStatus
 
@@ -5120,6 +5135,7 @@ export namespace Prisma {
     itemName: string | null
     quantity: number | null
     fulfilled: number | null
+    unit: $Enums.Unit | null
     urgency: $Enums.UrgencyLevel | null
     status: $Enums.ReliefStatus | null
     createdAt: Date | null
@@ -5133,6 +5149,7 @@ export namespace Prisma {
     itemName: string | null
     quantity: number | null
     fulfilled: number | null
+    unit: $Enums.Unit | null
     urgency: $Enums.UrgencyLevel | null
     status: $Enums.ReliefStatus | null
     createdAt: Date | null
@@ -5146,6 +5163,7 @@ export namespace Prisma {
     itemName: number
     quantity: number
     fulfilled: number
+    unit: number
     urgency: number
     status: number
     createdAt: number
@@ -5171,6 +5189,7 @@ export namespace Prisma {
     itemName?: true
     quantity?: true
     fulfilled?: true
+    unit?: true
     urgency?: true
     status?: true
     createdAt?: true
@@ -5184,6 +5203,7 @@ export namespace Prisma {
     itemName?: true
     quantity?: true
     fulfilled?: true
+    unit?: true
     urgency?: true
     status?: true
     createdAt?: true
@@ -5197,6 +5217,7 @@ export namespace Prisma {
     itemName?: true
     quantity?: true
     fulfilled?: true
+    unit?: true
     urgency?: true
     status?: true
     createdAt?: true
@@ -5297,6 +5318,7 @@ export namespace Prisma {
     itemName: string
     quantity: number
     fulfilled: number
+    unit: $Enums.Unit
     urgency: $Enums.UrgencyLevel
     status: $Enums.ReliefStatus
     createdAt: Date
@@ -5329,6 +5351,7 @@ export namespace Prisma {
     itemName?: boolean
     quantity?: boolean
     fulfilled?: boolean
+    unit?: boolean
     urgency?: boolean
     status?: boolean
     createdAt?: boolean
@@ -5343,6 +5366,7 @@ export namespace Prisma {
     itemName?: boolean
     quantity?: boolean
     fulfilled?: boolean
+    unit?: boolean
     urgency?: boolean
     status?: boolean
     createdAt?: boolean
@@ -5357,6 +5381,7 @@ export namespace Prisma {
     itemName?: boolean
     quantity?: boolean
     fulfilled?: boolean
+    unit?: boolean
     urgency?: boolean
     status?: boolean
     createdAt?: boolean
@@ -5371,13 +5396,14 @@ export namespace Prisma {
     itemName?: boolean
     quantity?: boolean
     fulfilled?: boolean
+    unit?: boolean
     urgency?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ReliefNeedOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "shelterId" | "itemCategory" | "itemName" | "quantity" | "fulfilled" | "urgency" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["reliefNeed"]>
+  export type ReliefNeedOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "shelterId" | "itemCategory" | "itemName" | "quantity" | "fulfilled" | "unit" | "urgency" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["reliefNeed"]>
   export type ReliefNeedInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     shelter?: boolean | ShelterDefaultArgs<ExtArgs>
   }
@@ -5400,6 +5426,7 @@ export namespace Prisma {
       itemName: string
       quantity: number
       fulfilled: number
+      unit: $Enums.Unit
       urgency: $Enums.UrgencyLevel
       status: $Enums.ReliefStatus
       createdAt: Date
@@ -5834,6 +5861,7 @@ export namespace Prisma {
     readonly itemName: FieldRef<"ReliefNeed", 'String'>
     readonly quantity: FieldRef<"ReliefNeed", 'Int'>
     readonly fulfilled: FieldRef<"ReliefNeed", 'Int'>
+    readonly unit: FieldRef<"ReliefNeed", 'Unit'>
     readonly urgency: FieldRef<"ReliefNeed", 'UrgencyLevel'>
     readonly status: FieldRef<"ReliefNeed", 'ReliefStatus'>
     readonly createdAt: FieldRef<"ReliefNeed", 'DateTime'>
@@ -8710,6 +8738,7 @@ export namespace Prisma {
     itemName: 'itemName',
     quantity: 'quantity',
     fulfilled: 'fulfilled',
+    unit: 'unit',
     urgency: 'urgency',
     status: 'status',
     createdAt: 'createdAt',
@@ -8841,6 +8870,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Unit'
+   */
+  export type EnumUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Unit'>
+    
+
+
+  /**
+   * Reference to a field of type 'Unit[]'
+   */
+  export type ListEnumUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Unit[]'>
     
 
 
@@ -9189,6 +9232,7 @@ export namespace Prisma {
     itemName?: StringFilter<"ReliefNeed"> | string
     quantity?: IntFilter<"ReliefNeed"> | number
     fulfilled?: IntFilter<"ReliefNeed"> | number
+    unit?: EnumUnitFilter<"ReliefNeed"> | $Enums.Unit
     urgency?: EnumUrgencyLevelFilter<"ReliefNeed"> | $Enums.UrgencyLevel
     status?: EnumReliefStatusFilter<"ReliefNeed"> | $Enums.ReliefStatus
     createdAt?: DateTimeFilter<"ReliefNeed"> | Date | string
@@ -9203,6 +9247,7 @@ export namespace Prisma {
     itemName?: SortOrder
     quantity?: SortOrder
     fulfilled?: SortOrder
+    unit?: SortOrder
     urgency?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -9220,6 +9265,7 @@ export namespace Prisma {
     itemName?: StringFilter<"ReliefNeed"> | string
     quantity?: IntFilter<"ReliefNeed"> | number
     fulfilled?: IntFilter<"ReliefNeed"> | number
+    unit?: EnumUnitFilter<"ReliefNeed"> | $Enums.Unit
     urgency?: EnumUrgencyLevelFilter<"ReliefNeed"> | $Enums.UrgencyLevel
     status?: EnumReliefStatusFilter<"ReliefNeed"> | $Enums.ReliefStatus
     createdAt?: DateTimeFilter<"ReliefNeed"> | Date | string
@@ -9234,6 +9280,7 @@ export namespace Prisma {
     itemName?: SortOrder
     quantity?: SortOrder
     fulfilled?: SortOrder
+    unit?: SortOrder
     urgency?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -9255,6 +9302,7 @@ export namespace Prisma {
     itemName?: StringWithAggregatesFilter<"ReliefNeed"> | string
     quantity?: IntWithAggregatesFilter<"ReliefNeed"> | number
     fulfilled?: IntWithAggregatesFilter<"ReliefNeed"> | number
+    unit?: EnumUnitWithAggregatesFilter<"ReliefNeed"> | $Enums.Unit
     urgency?: EnumUrgencyLevelWithAggregatesFilter<"ReliefNeed"> | $Enums.UrgencyLevel
     status?: EnumReliefStatusWithAggregatesFilter<"ReliefNeed"> | $Enums.ReliefStatus
     createdAt?: DateTimeWithAggregatesFilter<"ReliefNeed"> | Date | string
@@ -9741,6 +9789,7 @@ export namespace Prisma {
     itemName: string
     quantity: number
     fulfilled?: number
+    unit?: $Enums.Unit
     urgency?: $Enums.UrgencyLevel
     status?: $Enums.ReliefStatus
     createdAt?: Date | string
@@ -9755,6 +9804,7 @@ export namespace Prisma {
     itemName: string
     quantity: number
     fulfilled?: number
+    unit?: $Enums.Unit
     urgency?: $Enums.UrgencyLevel
     status?: $Enums.ReliefStatus
     createdAt?: Date | string
@@ -9767,6 +9817,7 @@ export namespace Prisma {
     itemName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     fulfilled?: IntFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
     urgency?: EnumUrgencyLevelFieldUpdateOperationsInput | $Enums.UrgencyLevel
     status?: EnumReliefStatusFieldUpdateOperationsInput | $Enums.ReliefStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9781,6 +9832,7 @@ export namespace Prisma {
     itemName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     fulfilled?: IntFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
     urgency?: EnumUrgencyLevelFieldUpdateOperationsInput | $Enums.UrgencyLevel
     status?: EnumReliefStatusFieldUpdateOperationsInput | $Enums.ReliefStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9794,6 +9846,7 @@ export namespace Prisma {
     itemName: string
     quantity: number
     fulfilled?: number
+    unit?: $Enums.Unit
     urgency?: $Enums.UrgencyLevel
     status?: $Enums.ReliefStatus
     createdAt?: Date | string
@@ -9806,6 +9859,7 @@ export namespace Prisma {
     itemName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     fulfilled?: IntFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
     urgency?: EnumUrgencyLevelFieldUpdateOperationsInput | $Enums.UrgencyLevel
     status?: EnumReliefStatusFieldUpdateOperationsInput | $Enums.ReliefStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9819,6 +9873,7 @@ export namespace Prisma {
     itemName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     fulfilled?: IntFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
     urgency?: EnumUrgencyLevelFieldUpdateOperationsInput | $Enums.UrgencyLevel
     status?: EnumReliefStatusFieldUpdateOperationsInput | $Enums.ReliefStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10350,6 +10405,13 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type EnumUnitFilter<$PrismaModel = never> = {
+    equals?: $Enums.Unit | EnumUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.Unit[] | ListEnumUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Unit[] | ListEnumUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumUnitFilter<$PrismaModel> | $Enums.Unit
+  }
+
   export type EnumUrgencyLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.UrgencyLevel | EnumUrgencyLevelFieldRefInput<$PrismaModel>
     in?: $Enums.UrgencyLevel[] | ListEnumUrgencyLevelFieldRefInput<$PrismaModel>
@@ -10376,6 +10438,7 @@ export namespace Prisma {
     itemName?: SortOrder
     quantity?: SortOrder
     fulfilled?: SortOrder
+    unit?: SortOrder
     urgency?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -10394,6 +10457,7 @@ export namespace Prisma {
     itemName?: SortOrder
     quantity?: SortOrder
     fulfilled?: SortOrder
+    unit?: SortOrder
     urgency?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -10407,6 +10471,7 @@ export namespace Prisma {
     itemName?: SortOrder
     quantity?: SortOrder
     fulfilled?: SortOrder
+    unit?: SortOrder
     urgency?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -10416,6 +10481,16 @@ export namespace Prisma {
   export type ReliefNeedSumOrderByAggregateInput = {
     quantity?: SortOrder
     fulfilled?: SortOrder
+  }
+
+  export type EnumUnitWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Unit | EnumUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.Unit[] | ListEnumUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Unit[] | ListEnumUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumUnitWithAggregatesFilter<$PrismaModel> | $Enums.Unit
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUnitFilter<$PrismaModel>
+    _max?: NestedEnumUnitFilter<$PrismaModel>
   }
 
   export type EnumUrgencyLevelWithAggregatesFilter<$PrismaModel = never> = {
@@ -10919,6 +10994,10 @@ export namespace Prisma {
     connect?: ShelterWhereUniqueInput
   }
 
+  export type EnumUnitFieldUpdateOperationsInput = {
+    set?: $Enums.Unit
+  }
+
   export type EnumUrgencyLevelFieldUpdateOperationsInput = {
     set?: $Enums.UrgencyLevel
   }
@@ -11163,6 +11242,13 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumUnitFilter<$PrismaModel = never> = {
+    equals?: $Enums.Unit | EnumUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.Unit[] | ListEnumUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Unit[] | ListEnumUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumUnitFilter<$PrismaModel> | $Enums.Unit
+  }
+
   export type NestedEnumUrgencyLevelFilter<$PrismaModel = never> = {
     equals?: $Enums.UrgencyLevel | EnumUrgencyLevelFieldRefInput<$PrismaModel>
     in?: $Enums.UrgencyLevel[] | ListEnumUrgencyLevelFieldRefInput<$PrismaModel>
@@ -11175,6 +11261,16 @@ export namespace Prisma {
     in?: $Enums.ReliefStatus[] | ListEnumReliefStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ReliefStatus[] | ListEnumReliefStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumReliefStatusFilter<$PrismaModel> | $Enums.ReliefStatus
+  }
+
+  export type NestedEnumUnitWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Unit | EnumUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.Unit[] | ListEnumUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Unit[] | ListEnumUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumUnitWithAggregatesFilter<$PrismaModel> | $Enums.Unit
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUnitFilter<$PrismaModel>
+    _max?: NestedEnumUnitFilter<$PrismaModel>
   }
 
   export type NestedEnumUrgencyLevelWithAggregatesFilter<$PrismaModel = never> = {
@@ -11642,6 +11738,7 @@ export namespace Prisma {
     itemName: string
     quantity: number
     fulfilled?: number
+    unit?: $Enums.Unit
     urgency?: $Enums.UrgencyLevel
     status?: $Enums.ReliefStatus
     createdAt?: Date | string
@@ -11654,6 +11751,7 @@ export namespace Prisma {
     itemName: string
     quantity: number
     fulfilled?: number
+    unit?: $Enums.Unit
     urgency?: $Enums.UrgencyLevel
     status?: $Enums.ReliefStatus
     createdAt?: Date | string
@@ -11779,6 +11877,7 @@ export namespace Prisma {
     itemName?: StringFilter<"ReliefNeed"> | string
     quantity?: IntFilter<"ReliefNeed"> | number
     fulfilled?: IntFilter<"ReliefNeed"> | number
+    unit?: EnumUnitFilter<"ReliefNeed"> | $Enums.Unit
     urgency?: EnumUrgencyLevelFilter<"ReliefNeed"> | $Enums.UrgencyLevel
     status?: EnumReliefStatusFilter<"ReliefNeed"> | $Enums.ReliefStatus
     createdAt?: DateTimeFilter<"ReliefNeed"> | Date | string
@@ -12307,6 +12406,7 @@ export namespace Prisma {
     itemName: string
     quantity: number
     fulfilled?: number
+    unit?: $Enums.Unit
     urgency?: $Enums.UrgencyLevel
     status?: $Enums.ReliefStatus
     createdAt?: Date | string
@@ -12333,6 +12433,7 @@ export namespace Prisma {
     itemName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     fulfilled?: IntFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
     urgency?: EnumUrgencyLevelFieldUpdateOperationsInput | $Enums.UrgencyLevel
     status?: EnumReliefStatusFieldUpdateOperationsInput | $Enums.ReliefStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12345,6 +12446,7 @@ export namespace Prisma {
     itemName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     fulfilled?: IntFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
     urgency?: EnumUrgencyLevelFieldUpdateOperationsInput | $Enums.UrgencyLevel
     status?: EnumReliefStatusFieldUpdateOperationsInput | $Enums.ReliefStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12357,6 +12459,7 @@ export namespace Prisma {
     itemName?: StringFieldUpdateOperationsInput | string
     quantity?: IntFieldUpdateOperationsInput | number
     fulfilled?: IntFieldUpdateOperationsInput | number
+    unit?: EnumUnitFieldUpdateOperationsInput | $Enums.Unit
     urgency?: EnumUrgencyLevelFieldUpdateOperationsInput | $Enums.UrgencyLevel
     status?: EnumReliefStatusFieldUpdateOperationsInput | $Enums.ReliefStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

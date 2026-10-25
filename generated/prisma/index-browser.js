@@ -167,6 +167,7 @@ exports.Prisma.ReliefNeedScalarFieldEnum = {
   itemName: 'itemName',
   quantity: 'quantity',
   fulfilled: 'fulfilled',
+  unit: 'unit',
   urgency: 'urgency',
   status: 'status',
   createdAt: 'createdAt',
@@ -218,6 +219,14 @@ exports.Role = exports.$Enums.Role = {
   VOLUNTEER: 'VOLUNTEER',
   DONOR: 'DONOR',
   ADMIN: 'ADMIN'
+};
+
+exports.Unit = exports.$Enums.Unit = {
+  KG: 'KG',
+  LITER: 'LITER',
+  PACKET: 'PACKET',
+  PIECE: 'PIECE',
+  BOX: 'BOX'
 };
 
 exports.UrgencyLevel = exports.$Enums.UrgencyLevel = {

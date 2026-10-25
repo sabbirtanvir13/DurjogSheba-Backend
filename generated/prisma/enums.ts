@@ -56,3 +56,15 @@ export const PaymentStatus = {
 } as const
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const Unit = {
+  KG: 'KG',
+  LITER: 'LITER',
+  PACKET: 'PACKET',
+  PIECE: 'PIECE',
+  BOX: 'BOX'
+} as const
+
+export type Unit = (typeof Unit)[keyof typeof Unit]
+
