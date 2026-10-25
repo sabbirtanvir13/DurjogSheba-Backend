@@ -16,7 +16,7 @@ import crypto from "crypto";
 import { transporter } from "../../lib/nodemailer";
 import ejs from "ejs";
 import path from "path";
-import { Role } from "../../../../generated/prisma/enums";
+import { Role, UserStatus } from "../../../../generated/prisma/enums";
 
 const registerUser = async (payload: IRegisterUserPayload) => {
 	const { name, password, phoneNumber } = payload;
@@ -88,6 +88,14 @@ const verifyDonorEmail = async (payload: IVerifyEmailPayload) => {
 	const isUserExist = await prisma.user.findUnique({
 		where: { email },
 	});
+  
+
+
+	if (isUserExist?.status === UserStatus.BLOCKED) {
+		throw new Error("User is Blocked")
+	}
+
+
 
 	if (isUserExist?.isVerified) {
 		throw new Error("Email Already Verified");
@@ -198,9 +206,15 @@ const loginUser = async (payload: ILoginUserPayload) => {
 		where: { email },
 	});
 
+		if (user?.status === UserStatus.BLOCKED) {
+		throw new Error("User is Blocked")
+	}
+
+
 	if (!user) {
 		throw new Error("User not found");
 	}
+
 
 	const isPasswordMatched = await bcrypt.compare(password, user.password);
 

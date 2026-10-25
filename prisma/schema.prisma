@@ -17,6 +17,7 @@ model User {
   password      String
   phoneNumber   String
   role          Role            @default(DONOR)
+  status       UserStatus @default(ACTIVE)
   isVerified    Boolean         @default(false)
   imageUrl      String?
   imagePublicId String?
@@ -149,6 +150,7 @@ enum Unit {
 }
 
 enum RescueStatus {
+  ASSIGNED
   PENDING
   IN_PROGRESS
   RESCUED
@@ -160,4 +162,11 @@ enum PaymentStatus {
   COMPLETED
   FAILED
   REFUNDED
+}
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+  PENDING
+  SUSPENDED
 }

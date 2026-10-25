@@ -39,6 +39,7 @@ export type ReliefStatus = (typeof ReliefStatus)[keyof typeof ReliefStatus]
 
 
 export const RescueStatus = {
+  ASSIGNED: 'ASSIGNED',
   PENDING: 'PENDING',
   IN_PROGRESS: 'IN_PROGRESS',
   RESCUED: 'RESCUED',
@@ -67,4 +68,15 @@ export const Unit = {
 } as const
 
 export type Unit = (typeof Unit)[keyof typeof Unit]
+
+
+export const UserStatus = {
+  ACTIVE: 'ACTIVE',
+  BLOCKED: 'BLOCKED',
+  PENDING: 'PENDING',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
 

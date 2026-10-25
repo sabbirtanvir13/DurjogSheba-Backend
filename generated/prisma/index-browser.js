@@ -127,6 +127,7 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   phoneNumber: 'phoneNumber',
   role: 'role',
+  status: 'status',
   isVerified: 'isVerified',
   imageUrl: 'imageUrl',
   imagePublicId: 'imagePublicId',
@@ -221,6 +222,13 @@ exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN'
 };
 
+exports.UserStatus = exports.$Enums.UserStatus = {
+  ACTIVE: 'ACTIVE',
+  BLOCKED: 'BLOCKED',
+  PENDING: 'PENDING',
+  SUSPENDED: 'SUSPENDED'
+};
+
 exports.Unit = exports.$Enums.Unit = {
   KG: 'KG',
   LITER: 'LITER',
@@ -244,6 +252,7 @@ exports.ReliefStatus = exports.$Enums.ReliefStatus = {
 };
 
 exports.RescueStatus = exports.$Enums.RescueStatus = {
+  ASSIGNED: 'ASSIGNED',
   PENDING: 'PENDING',
   IN_PROGRESS: 'IN_PROGRESS',
   RESCUED: 'RESCUED',
