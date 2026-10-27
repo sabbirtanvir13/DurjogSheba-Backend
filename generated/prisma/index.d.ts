@@ -1564,6 +1564,7 @@ export namespace Prisma {
     imagePublicId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    isDeleted: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1579,6 +1580,7 @@ export namespace Prisma {
     imagePublicId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    isDeleted: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1594,6 +1596,7 @@ export namespace Prisma {
     imagePublicId: number
     createdAt: number
     updatedAt: number
+    isDeleted: number
     _all: number
   }
 
@@ -1611,6 +1614,7 @@ export namespace Prisma {
     imagePublicId?: true
     createdAt?: true
     updatedAt?: true
+    isDeleted?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1626,6 +1630,7 @@ export namespace Prisma {
     imagePublicId?: true
     createdAt?: true
     updatedAt?: true
+    isDeleted?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1641,6 +1646,7 @@ export namespace Prisma {
     imagePublicId?: true
     createdAt?: true
     updatedAt?: true
+    isDeleted?: true
     _all?: true
   }
 
@@ -1729,6 +1735,7 @@ export namespace Prisma {
     imagePublicId: string | null
     createdAt: Date
     updatedAt: Date
+    isDeleted: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1761,6 +1768,7 @@ export namespace Prisma {
     imagePublicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isDeleted?: boolean
     donor?: boolean | User$donorArgs<ExtArgs>
     shelters?: boolean | User$sheltersArgs<ExtArgs>
     rescueAssigned?: boolean | User$rescueAssignedArgs<ExtArgs>
@@ -1781,6 +1789,7 @@ export namespace Prisma {
     imagePublicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isDeleted?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1796,6 +1805,7 @@ export namespace Prisma {
     imagePublicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isDeleted?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1811,9 +1821,10 @@ export namespace Prisma {
     imagePublicId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isDeleted?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "phoneNumber" | "role" | "status" | "isVerified" | "imageUrl" | "imagePublicId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "phoneNumber" | "role" | "status" | "isVerified" | "imageUrl" | "imagePublicId" | "createdAt" | "updatedAt" | "isDeleted", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     donor?: boolean | User$donorArgs<ExtArgs>
     shelters?: boolean | User$sheltersArgs<ExtArgs>
@@ -1845,6 +1856,7 @@ export namespace Prisma {
       imagePublicId: string | null
       createdAt: Date
       updatedAt: Date
+      isDeleted: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2284,6 +2296,7 @@ export namespace Prisma {
     readonly imagePublicId: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly isDeleted: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -8722,7 +8735,8 @@ export namespace Prisma {
     imageUrl: 'imageUrl',
     imagePublicId: 'imagePublicId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    isDeleted: 'isDeleted'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -9019,6 +9033,7 @@ export namespace Prisma {
     imagePublicId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    isDeleted?: BoolFilter<"User"> | boolean
     donor?: XOR<DonorNullableScalarRelationFilter, DonorWhereInput> | null
     shelters?: ShelterListRelationFilter
     rescueAssigned?: RescueRequestListRelationFilter
@@ -9038,6 +9053,7 @@ export namespace Prisma {
     imagePublicId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isDeleted?: SortOrder
     donor?: DonorOrderByWithRelationInput
     shelters?: ShelterOrderByRelationAggregateInput
     rescueAssigned?: RescueRequestOrderByRelationAggregateInput
@@ -9060,6 +9076,7 @@ export namespace Prisma {
     imagePublicId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    isDeleted?: BoolFilter<"User"> | boolean
     donor?: XOR<DonorNullableScalarRelationFilter, DonorWhereInput> | null
     shelters?: ShelterListRelationFilter
     rescueAssigned?: RescueRequestListRelationFilter
@@ -9079,6 +9096,7 @@ export namespace Prisma {
     imagePublicId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isDeleted?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -9100,6 +9118,7 @@ export namespace Prisma {
     imagePublicId?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    isDeleted?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type DonorWhereInput = {
@@ -9542,6 +9561,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     donor?: DonorCreateNestedOneWithoutUserInput
     shelters?: ShelterCreateNestedManyWithoutCoordinatorInput
     rescueAssigned?: RescueRequestCreateNestedManyWithoutAssignedToInput
@@ -9561,6 +9581,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     donor?: DonorUncheckedCreateNestedOneWithoutUserInput
     shelters?: ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
     rescueAssigned?: RescueRequestUncheckedCreateNestedManyWithoutAssignedToInput
@@ -9580,6 +9601,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     donor?: DonorUpdateOneWithoutUserNestedInput
     shelters?: ShelterUpdateManyWithoutCoordinatorNestedInput
     rescueAssigned?: RescueRequestUpdateManyWithoutAssignedToNestedInput
@@ -9599,6 +9621,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     donor?: DonorUncheckedUpdateOneWithoutUserNestedInput
     shelters?: ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
     rescueAssigned?: RescueRequestUncheckedUpdateManyWithoutAssignedToNestedInput
@@ -9618,6 +9641,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -9633,6 +9657,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -9648,6 +9673,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type DonorCreateInput = {
@@ -10234,6 +10260,7 @@ export namespace Prisma {
     imagePublicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -10249,6 +10276,7 @@ export namespace Prisma {
     imagePublicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -10264,6 +10292,7 @@ export namespace Prisma {
     imagePublicId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -11718,6 +11747,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     shelters?: ShelterCreateNestedManyWithoutCoordinatorInput
     rescueAssigned?: RescueRequestCreateNestedManyWithoutAssignedToInput
     donations?: DonationCreateNestedManyWithoutDonorInput
@@ -11736,6 +11766,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     shelters?: ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
     rescueAssigned?: RescueRequestUncheckedCreateNestedManyWithoutAssignedToInput
     donations?: DonationUncheckedCreateNestedManyWithoutDonorInput
@@ -11770,6 +11801,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     shelters?: ShelterUpdateManyWithoutCoordinatorNestedInput
     rescueAssigned?: RescueRequestUpdateManyWithoutAssignedToNestedInput
     donations?: DonationUpdateManyWithoutDonorNestedInput
@@ -11788,6 +11820,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     shelters?: ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
     rescueAssigned?: RescueRequestUncheckedUpdateManyWithoutAssignedToNestedInput
     donations?: DonationUncheckedUpdateManyWithoutDonorNestedInput
@@ -11806,6 +11839,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     donor?: DonorCreateNestedOneWithoutUserInput
     rescueAssigned?: RescueRequestCreateNestedManyWithoutAssignedToInput
     donations?: DonationCreateNestedManyWithoutDonorInput
@@ -11824,6 +11858,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     donor?: DonorUncheckedCreateNestedOneWithoutUserInput
     rescueAssigned?: RescueRequestUncheckedCreateNestedManyWithoutAssignedToInput
     donations?: DonationUncheckedCreateNestedManyWithoutDonorInput
@@ -11932,6 +11967,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     donor?: DonorUpdateOneWithoutUserNestedInput
     rescueAssigned?: RescueRequestUpdateManyWithoutAssignedToNestedInput
     donations?: DonationUpdateManyWithoutDonorNestedInput
@@ -11950,6 +11986,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     donor?: DonorUncheckedUpdateOneWithoutUserNestedInput
     rescueAssigned?: RescueRequestUncheckedUpdateManyWithoutAssignedToNestedInput
     donations?: DonationUncheckedUpdateManyWithoutDonorNestedInput
@@ -12140,6 +12177,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     donor?: DonorCreateNestedOneWithoutUserInput
     shelters?: ShelterCreateNestedManyWithoutCoordinatorInput
     donations?: DonationCreateNestedManyWithoutDonorInput
@@ -12158,6 +12196,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     donor?: DonorUncheckedCreateNestedOneWithoutUserInput
     shelters?: ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
     donations?: DonationUncheckedCreateNestedManyWithoutDonorInput
@@ -12237,6 +12276,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     donor?: DonorUpdateOneWithoutUserNestedInput
     shelters?: ShelterUpdateManyWithoutCoordinatorNestedInput
     donations?: DonationUpdateManyWithoutDonorNestedInput
@@ -12255,6 +12295,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     donor?: DonorUncheckedUpdateOneWithoutUserNestedInput
     shelters?: ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
     donations?: DonationUncheckedUpdateManyWithoutDonorNestedInput
@@ -12273,6 +12314,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     donor?: DonorCreateNestedOneWithoutUserInput
     shelters?: ShelterCreateNestedManyWithoutCoordinatorInput
     rescueAssigned?: RescueRequestCreateNestedManyWithoutAssignedToInput
@@ -12291,6 +12333,7 @@ export namespace Prisma {
     imagePublicId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    isDeleted?: boolean
     donor?: DonorUncheckedCreateNestedOneWithoutUserInput
     shelters?: ShelterUncheckedCreateNestedManyWithoutCoordinatorInput
     rescueAssigned?: RescueRequestUncheckedCreateNestedManyWithoutAssignedToInput
@@ -12325,6 +12368,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     donor?: DonorUpdateOneWithoutUserNestedInput
     shelters?: ShelterUpdateManyWithoutCoordinatorNestedInput
     rescueAssigned?: RescueRequestUpdateManyWithoutAssignedToNestedInput
@@ -12343,6 +12387,7 @@ export namespace Prisma {
     imagePublicId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     donor?: DonorUncheckedUpdateOneWithoutUserNestedInput
     shelters?: ShelterUncheckedUpdateManyWithoutCoordinatorNestedInput
     rescueAssigned?: RescueRequestUncheckedUpdateManyWithoutAssignedToNestedInput

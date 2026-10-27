@@ -132,7 +132,8 @@ exports.Prisma.UserScalarFieldEnum = {
   imageUrl: 'imageUrl',
   imagePublicId: 'imagePublicId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.DonorScalarFieldEnum = {
