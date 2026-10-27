@@ -20,6 +20,7 @@ import { ReliefNeedRoutes } from "./app/module/ReliefNeed/reliefNeed.routes";
 import { RescueRequestRoutes } from "./app/module/rescueRequest/rescueRequest.routes";
 import { AdminRoutes } from "./app/module/admin/admin.route";
 import { VolunteerRoutes } from "./app/module/volunteer/volunteer.routes";
+import { DonationRoutes } from "./app/module/donation/donation.routes";
 const app: Application = express();
 
 app.use(
@@ -43,6 +44,7 @@ app.use("/api/v1/relief-needs", ReliefNeedRoutes);
 app.use("/api/v1/rescue-requests", RescueRequestRoutes);
 app.use("/api/v1/admin", AdminRoutes);
 app.use("/api/v1/volunteers", VolunteerRoutes);
+app.use("/api/v1/donations", DonationRoutes);
 app.get("/test", async (req: Request, res: Response, next: NextFunction) => {
 	try {
 

@@ -95,8 +95,23 @@ const getAdminDashboardStats = async () => {
   };
 };
 
+
+const getAllDonationsForAdminFromDB = async () => {
+  const result = await prisma.donation.findMany({
+    include: {
+      donor: {
+        select: { id: true, name: true, email: true, phoneNumber: true },
+      },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return result;
+};
+
 export const AdminService = {
   getAllUsers,
   updateUserStatus,
   getAdminDashboardStats,
+  getAllDonationsForAdminFromDB
 };

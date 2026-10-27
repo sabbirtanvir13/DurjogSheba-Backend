@@ -59,8 +59,28 @@ const updateUserStatus = async (req: Request, res: Response) => {
   }
 };
 
+const getAllDonations = async (req: Request, res: Response) => {
+  try {
+    const result = await AdminService.getAllDonationsForAdminFromDB();
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "All donations fetched successfully for admin",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      statusCode: 400,
+      message: error.message || "Failed to fetch donations",
+    });
+  }
+};
+
 export const AdminController = {
   getAdminDashboardStats,
   getAllUsers,
   updateUserStatus,
+  getAllDonations
 };
