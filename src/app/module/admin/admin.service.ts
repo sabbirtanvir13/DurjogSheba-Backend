@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import { UserStatus } from "../../../../generated/prisma/enums";
+import { UserStatus } from "../../../generated/prisma/enums";
 
 
 const getAllUsers = async (filters: { searchTerm?: string; role?: string; status?: UserStatus }) => {

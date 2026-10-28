@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { RescueStatus, UrgencyLevel } from "../../../../generated/prisma/enums";
+import { RescueStatus, UrgencyLevel } from "../../../generated/prisma/enums";
 
 const createRescueRequestZodSchema = z.object({
 

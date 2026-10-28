@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ReliefStatus, UrgencyLevel, Unit } from "../../../../generated/prisma/enums";
+import { ReliefStatus, UrgencyLevel, Unit } from "../../../generated/prisma/enums";
 
 const createReliefNeedZodSchema = z.object({
   shelterId: z.string({ message: "Shelter ID is required" }),

@@ -3,7 +3,7 @@ import express from "express";
 import { upload } from "../../lib/multer";
 import { UserController } from "./user.controller";
 import { auth } from "../../middleware/checkAuth";
-import { Role } from "../../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/enums";
 
 const router = express.Router();
 

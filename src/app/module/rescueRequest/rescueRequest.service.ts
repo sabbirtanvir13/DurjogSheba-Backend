@@ -1,4 +1,4 @@
-import { RescueStatus } from "../../../../generated/prisma/enums";
+import { RescueStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import {
   ICreateRescueRequestInput,

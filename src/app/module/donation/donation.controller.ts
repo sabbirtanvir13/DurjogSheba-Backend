@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { DonationService } from "./donation.service";
 import { prisma } from "../../lib/prisma";
-import { PaymentStatus } from "../../../../generated/prisma/enums";
+import { PaymentStatus } from "../../../generated/prisma/enums";
 import config from "../../config";
 
 
@@ -73,7 +73,6 @@ const bkashCallback = async (req: Request, res: Response) => {
         data: updatedDonation,
       });
     } else {
-      // পেমেন্ট ফেইল বা ক্যানসেল হলে স্ট্যাটাস আপডেট
       await prisma.donation.update({
         where: { id: donationId as string },
         data: { status: PaymentStatus.FAILED },

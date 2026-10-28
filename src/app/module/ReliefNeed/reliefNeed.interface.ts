@@ -1,4 +1,4 @@
-import { ReliefStatus, UrgencyLevel, Unit } from "../../../../generated/prisma/enums";
+import { ReliefStatus, UrgencyLevel, Unit } from "../../../generated/prisma/enums";
 
 export interface ICreateReliefNeedInput {
   shelterId: string;

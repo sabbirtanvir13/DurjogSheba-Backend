@@ -1,7 +1,7 @@
 import express from "express";
 import { auth } from "../../middleware/checkAuth";
 import { AdminController } from "./admin.controller";
-import { Role } from "../../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/enums";
 import { validateRequest } from "../../middleware/validateRequest";
 import { AdminValidation } from "./admin.validation";
 import { RescueRequestValidation } from "../rescueRequest/rescueRequest.validation";

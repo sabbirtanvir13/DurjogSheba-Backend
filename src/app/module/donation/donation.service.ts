@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import { PaymentStatus } from "../../../../generated/prisma/enums";
+import { PaymentStatus } from "../../../generated/prisma/enums";
 import { getBkashIdToken } from "../../lib/bkash";
 import config from "../../config";
 import crypto from "crypto";
@@ -43,7 +43,7 @@ const createBkashPayment = async (userId: string, amount: number) => {
   const result = await response.json();
 
   if (!response.ok || result.statusCode !== "0000") {
-    // পেমেন্ট ইনিশিয়েট ফেইল হলে স্ট্যাটাস FAILED করে দেব
+  
     await prisma.donation.update({
       where: { id: donation.id },
       data: { status: PaymentStatus.FAILED },
@@ -58,7 +58,6 @@ const createBkashPayment = async (userId: string, amount: number) => {
   };
 };
 
-// ২. পেমেন্ট এক্সিকিউট বা কনফার্ম করা (সফল হলে COMPLETED করা)
 const executeBkashPayment = async (paymentID: string, donationId: string) => {
   const existingDonation = await prisma.donation.findUnique({
     where: { id: donationId },
@@ -90,7 +89,7 @@ const executeBkashPayment = async (paymentID: string, donationId: string) => {
   const result = await response.json();
 
   if (!response.ok || result.statusCode !== "0000") {
-    // এক্সিকিউশন ফেইল হলে FAILED আপডেট
+
     await prisma.donation.update({
       where: { id: donationId },
       data: { status: PaymentStatus.FAILED },
@@ -98,7 +97,7 @@ const executeBkashPayment = async (paymentID: string, donationId: string) => {
     throw new Error(result.statusMessage || "bKash payment execution failed");
   }
 
-  // পেমেন্ট সফল হলে ডেটাবেজে স্ট্যাটাস COMPLETED করব
+
   const updatedDonation = await prisma.donation.update({
     where: { id: donationId },
     data: { status: PaymentStatus.COMPLETED },

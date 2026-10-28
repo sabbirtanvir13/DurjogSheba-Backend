@@ -1,6 +1,6 @@
 import express from "express";
 import { ReliefNeedController } from "./reliefNeed.controller";
-import { Role } from "../../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/enums";
 import { auth } from "../../middleware/checkAuth";
 import { validateRequest } from "../../middleware/validateRequest";
 import { ReliefNeedValidation } from "./reliefNeed.validation";

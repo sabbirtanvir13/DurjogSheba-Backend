@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import { RescueStatus } from "../../../../generated/prisma/enums";
+import { RescueStatus } from "../../../generated/prisma/enums";
 
 // ১. ভলান্টিয়ার ড্যাশবোর্ড ওভারভিউ (তার কয়টি টাস্ক অ্যাসাইন আছে)
 const getVolunteerDashboardStats = async (volunteerId: string) => {

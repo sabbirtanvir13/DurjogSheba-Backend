@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { UserStatus } from "../../../../generated/prisma/enums";
+import { UserStatus } from "../../../generated/prisma/enums";
 
 const updateUserStatusZodSchema = z.object({
 

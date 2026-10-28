@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import { auth } from "../../middleware/checkAuth";
 import { validateRequest } from "../../middleware/validateRequest";
 import { DonationController } from "./donation.controller";
-import { Role } from "../../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/enums";
 import { DonationValidation } from "./donation.validation";
 
 

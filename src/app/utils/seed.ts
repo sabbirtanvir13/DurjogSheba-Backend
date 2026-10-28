@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { Role } from "../../../generated/prisma/client";
+import { Role } from "../../generated/prisma/enums";
 import config from "../config";
 import { prisma } from "../lib/prisma";
 

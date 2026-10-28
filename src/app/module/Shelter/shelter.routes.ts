@@ -1,6 +1,6 @@
 import express from "express";
 import { ShelterController } from "./shelter.controller";
-import { Role } from "../../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/enums";
 import { auth } from "../../middleware/checkAuth";
 import { upload } from "../../lib/multer";
 import { validateRequest } from "../../middleware/validateRequest";

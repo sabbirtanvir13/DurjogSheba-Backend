@@ -2,7 +2,7 @@ import express from "express";
 import { validateRequest } from "../../middleware/validateRequest";
 import { RescueRequestValidation } from "./rescueRequest.validation";
 import { RescueRequestController } from "./rescueRequest.controller";
-import { Role } from "../../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/enums";
 import { auth } from "../../middleware/checkAuth";
 
 const router = express.Router();

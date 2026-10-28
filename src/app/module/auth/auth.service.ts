@@ -1,4 +1,4 @@
-﻿import bcrypt from "bcrypt";
+import bcrypt from "bcrypt";
 import type { JwtPayload, SignOptions } from "jsonwebtoken";
 import config from "../../config";
 import { prisma } from "../../lib/prisma";
@@ -16,7 +16,7 @@ import crypto from "crypto";
 import { transporter } from "../../lib/nodemailer";
 import ejs from "ejs";
 import path from "path";
-import { Role, UserStatus } from "../../../../generated/prisma/enums";
+import { Role, UserStatus } from "../../../generated/prisma/enums";
 
 const registerUser = async (payload: IRegisterUserPayload) => {
 	const { name, password, phoneNumber } = payload;
@@ -123,7 +123,7 @@ const verifyDonorEmail = async (payload: IVerifyEmailPayload) => {
 
 	const DonorPayload: IRegisterUserPayload = JSON.parse(redisDonorData);
 
-	const [createdUser, donor] = await prisma.$transaction(async (tx) => {
+	const [createdUser, donor] = await prisma.$transaction(async (tx: any) => {
 		const user = await tx.user.create({
 			data: {
 				name: DonorPayload.name,

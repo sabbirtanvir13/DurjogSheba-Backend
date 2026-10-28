@@ -1,5 +1,5 @@
 import express from "express";
-import { Role } from "../../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/enums";
 import { auth } from "../../middleware/checkAuth";
 import { VolunteerController } from "./volunteer.controller";
 

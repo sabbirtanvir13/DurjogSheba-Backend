@@ -1,4 +1,4 @@
-import { RescueStatus, UrgencyLevel } from "../../../../generated/prisma/enums";
+import { RescueStatus, UrgencyLevel } from "../../../generated/prisma/enums";
 
 
 export interface ICreateRescueRequestInput {
