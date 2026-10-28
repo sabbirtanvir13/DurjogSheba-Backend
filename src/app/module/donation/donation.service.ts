@@ -89,6 +89,13 @@ const executeBkashPayment = async (paymentID: string, donationId: string) => {
   const result = await response.json();
 
   if (!response.ok || result.statusCode !== "0000") {
+    console.error("[bKash executeBkashPayment error]", {
+      donationId,
+      paymentID,
+      statusCode: result?.statusCode,
+      statusMessage: result?.statusMessage,
+      result,
+    });
 
     await prisma.donation.update({
       where: { id: donationId },
@@ -97,10 +104,12 @@ const executeBkashPayment = async (paymentID: string, donationId: string) => {
     throw new Error(result.statusMessage || "bKash payment execution failed");
   }
 
-
   const updatedDonation = await prisma.donation.update({
     where: { id: donationId },
-    data: { status: PaymentStatus.COMPLETED },
+    data: {
+      status: PaymentStatus.COMPLETED,
+      transactionId: result.trxID || existingDonation.transactionId,
+    },
   });
 
   return updatedDonation;

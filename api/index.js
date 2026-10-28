@@ -20,7 +20,7 @@ var config_default = {
   port: process.env.PORT || 5e3,
   database_url: process.env.DATABASE_URL,
   bak_url: process.env.backend_base_url,
-  frontend_url: process.env.FRONTEND_URL,
+  frontend_url: process.env.FRONTEND_URL || "http://localhost:3000",
   bcrypt_salt_rounds: Number(process.env.BCRYPT_SALT_ROUNDS) || 10,
   jwt_access_secret: process.env.JWT_ACCESS_SECRET || process.env.JWT_SECRET || "default_jwt_access_secret",
   jwt_refresh_secret: process.env.JWT_REFRESH_SECRET || process.env.REFRESH_TOKEN_SECRET || "default_jwt_refresh_secret",
@@ -2723,6 +2723,13 @@ var executeBkashPayment = async (paymentID, donationId) => {
   });
   const result = await response.json();
   if (!response.ok || result.statusCode !== "0000") {
+    console.error("[bKash executeBkashPayment error]", {
+      donationId,
+      paymentID,
+      statusCode: result?.statusCode,
+      statusMessage: result?.statusMessage,
+      result
+    });
     await prisma.donation.update({
       where: { id: donationId },
       data: { status: PaymentStatus.FAILED }
@@ -2731,7 +2738,10 @@ var executeBkashPayment = async (paymentID, donationId) => {
   }
   const updatedDonation = await prisma.donation.update({
     where: { id: donationId },
-    data: { status: PaymentStatus.COMPLETED }
+    data: {
+      status: PaymentStatus.COMPLETED,
+      transactionId: result.trxID || existingDonation.transactionId
+    }
   });
   return updatedDonation;
 };
@@ -2761,6 +2771,13 @@ var bkashCallback = async (req, res) => {
     let donationId = req.params.donationId || req.query.donationId;
     let paymentID = req.query.paymentID;
     let status = req.query.status;
+    console.log("[bKash Callback received]", {
+      params: req.params,
+      query: req.query,
+      donationId,
+      paymentID,
+      status
+    });
     if (donationId && donationId.includes("?")) {
       const parts = donationId.split("?");
       donationId = parts[0];
@@ -2779,7 +2796,8 @@ var bkashCallback = async (req, res) => {
       }
       return res.status(400).json({ success: false, message: "Donation ID is missing in callback" });
     }
-    if (status === "success" || status === "completed") {
+    const normalizedStatus = status?.toLowerCase();
+    if (normalizedStatus === "success" || normalizedStatus === "completed") {
       if (!paymentID) {
         if (config_default.frontend_url) {
           return res.redirect(`${config_default.frontend_url}/payment/failed?message=Payment ID is missing`);
@@ -2799,6 +2817,7 @@ var bkashCallback = async (req, res) => {
         data: updatedDonation
       });
     } else {
+      console.warn("[bKash Callback non-success status]", { donationId, status });
       await prisma.donation.update({
         where: { id: donationId },
         data: { status: PaymentStatus.FAILED }
@@ -2813,6 +2832,7 @@ var bkashCallback = async (req, res) => {
       });
     }
   } catch (error) {
+    console.error("[bKash Callback execution error caught]", error);
     if (config_default.frontend_url) {
       return res.redirect(`${config_default.frontend_url}/payment/failed?message=${encodeURIComponent(error.message || "Payment execution failed")}`);
     }

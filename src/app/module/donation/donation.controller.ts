@@ -29,7 +29,14 @@ const bkashCallback = async (req: Request, res: Response) => {
     let paymentID = req.query.paymentID as string | undefined;
     let status = req.query.status as string | undefined;
 
- 
+    console.log("[bKash Callback received]", {
+      params: req.params,
+      query: req.query,
+      donationId,
+      paymentID,
+      status,
+    });
+
     if (donationId && donationId.includes("?")) {
       const parts = donationId.split("?");
       donationId = parts[0];
@@ -50,7 +57,9 @@ const bkashCallback = async (req: Request, res: Response) => {
       return res.status(400).json({ success: false, message: "Donation ID is missing in callback" });
     }
 
-    if (status === "success" || status === "completed") {
+    const normalizedStatus = status?.toLowerCase();
+
+    if (normalizedStatus === "success" || normalizedStatus === "completed") {
       if (!paymentID) {
         if (config.frontend_url) {
           return res.redirect(`${config.frontend_url}/payment/failed?message=Payment ID is missing`);
@@ -73,6 +82,7 @@ const bkashCallback = async (req: Request, res: Response) => {
         data: updatedDonation,
       });
     } else {
+      console.warn("[bKash Callback non-success status]", { donationId, status });
       await prisma.donation.update({
         where: { id: donationId as string },
         data: { status: PaymentStatus.FAILED },
@@ -89,6 +99,7 @@ const bkashCallback = async (req: Request, res: Response) => {
       });
     }
   } catch (error: any) {
+    console.error("[bKash Callback execution error caught]", error);
     if (config.frontend_url) {
       return res.redirect(`${config.frontend_url}/payment/failed?message=${encodeURIComponent(error.message || "Payment execution failed")}`);
     }
