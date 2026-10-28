@@ -7,10 +7,14 @@
 	"type": "module",
 	"main": "server.ts",
 	"scripts": {
-		"dev": "tsx watch src/server.ts",
+		
 		"seed": "tsx src/app/utils/seed.ts",
-		"start": "tsx src/server.ts",
-		"build": "tsc",
+		"dev": "tsx watch src/server.ts",
+		"build": "prisma generate && esbuild src/app.ts --bundle --platform=node --format=esm --packages=external \"--banner:js=import { createRequire } from 'module'; const require = createRequire(import.meta.url);\" --outfile=api/index.js",
+		"postinstall": "prisma generate",
+		"start": "node dist/server.js",
+
+		
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"format:check": "npx biome format ./src",
 		"format:fix": "npx biome format --write ./src",
@@ -28,6 +32,7 @@
 		"@types/node": "^26.6.5",
 		"@types/pg": "^8.23.1",
 		"prisma": "^7.10.1",
+		"tsup": "^9.0.0",
 		"tsx": "^4.23.15",
 		"typescript": "^7.0.2"
 	},
