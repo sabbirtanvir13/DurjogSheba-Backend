@@ -29,8 +29,7 @@ const bkashCallback = async (req: Request, res: Response) => {
     let paymentID = req.query.paymentID as string | undefined;
     let status = req.query.status as string | undefined;
 
-    // Handle edge case where bKash appended ?paymentID=... directly to a URL already having ?
-    // e.g., /callback?donationId=123?paymentID=TR001&status=success
+ 
     if (donationId && donationId.includes("?")) {
       const parts = donationId.split("?");
       donationId = parts[0];

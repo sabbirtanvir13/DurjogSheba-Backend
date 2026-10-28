@@ -4,12 +4,11 @@ import { getBkashIdToken } from "../../lib/bkash";
 import config from "../../config";
 import crypto from "crypto";
 
-// ১. পেমেন্ট ইনিশিয়েট করা (PENDING রেকর্ড তৈরি ও বিকাশ পেমেন্ট URL জেনারেট)
+
 const createBkashPayment = async (userId: string, amount: number) => {
   const idToken = await getBkashIdToken();
   const transactionId = `TRX-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
 
-  // ডেটাবেজে প্রথমে PENDING স্ট্যাটাসে ডোনেশন বা পেমেন্ট রেকর্ড তৈরি
   const donation = await prisma.donation.create({
     data: {
       donorId: userId,
@@ -21,7 +20,7 @@ const createBkashPayment = async (userId: string, amount: number) => {
     },
   });
 
-  // বিকাশ পেমেন্ট ক্রিয়েট এপিআই কল
+
   const response = await fetch(`${config.bkash_base_url}/tokenized/checkout/create`, {
     method: "POST",
     headers: {

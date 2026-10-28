@@ -3,7 +3,7 @@ import { VolunteerService } from "./volunteer.service";
 
 const getVolunteerDashboardStats = async (req: Request, res: Response) => {
   try {
-    const volunteerId = (req as any).user.userId; // auth middleware থেকে পাওয়া ইউজার আইডি
+    const volunteerId = (req as any).user.userId; 
     const result = await VolunteerService.getVolunteerDashboardStats(volunteerId);
     res.status(200).json({
       success: true,
