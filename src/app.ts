@@ -24,9 +24,15 @@ import { DonationRoutes } from "./app/module/donation/donation.routes";
 import { DonorRoutes } from "./app/module/donor/donor.routes";
 const app: Application = express();
 
+const allowedOrigins = [
+	config.frontend_url,
+	"http://localhost:3000",
+	"http://127.0.0.1:3000",
+].filter(Boolean) as string[];
+
 app.use(
 	cors({
-		origin: config.frontend_url,
+		origin: allowedOrigins,
 		credentials: true,
 	}),
 );

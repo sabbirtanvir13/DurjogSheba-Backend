@@ -57,10 +57,21 @@ const ResetPasswordZodSchema = z.object({
 	otp: z.string({ message: "OTP is required" }).min(1, "OTP is required"),
 });
 
+const GoogleLoginZodSchema = z
+	.object({
+		idToken: z.string().optional(),
+		token: z.string().optional(),
+	})
+	.refine((data) => Boolean(data.idToken || data.token), {
+		message: "Google ID token is required",
+		path: ["idToken"],
+	});
+
 export const UserValidation = {
 	UsersregisterZodSchema,
 	DonorEmailVerifyZodSchema,
 	LoginZodSchema,
 	ForgetPasswordZodSchema,
 	ResetPasswordZodSchema,
+	GoogleLoginZodSchema,
 };

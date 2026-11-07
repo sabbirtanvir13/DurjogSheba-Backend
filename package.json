@@ -7,14 +7,11 @@
 	"type": "module",
 	"main": "server.ts",
 	"scripts": {
-		
 		"seed": "tsx src/app/utils/seed.ts",
 		"dev": "tsx watch src/server.ts",
 		"build": "prisma generate && esbuild src/app.ts --bundle --platform=node --format=esm --packages=external \"--banner:js=import { createRequire } from 'module'; const require = createRequire(import.meta.url);\" --outfile=api/index.js",
 		"postinstall": "prisma generate",
 		"start": "node dist/server.js",
-
-		
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"format:check": "npx biome format ./src",
 		"format:fix": "npx biome format --write ./src",
@@ -50,6 +47,7 @@
 		"ejs": "^7.0.2",
 		"express": "^5.3.0",
 		"express-rate-limit": "^8.7.1",
+		"google-auth-library": "^11.3.3",
 		"helmet": "^8.3.0",
 		"http-status": "^2.1.0",
 		"jsonwebtoken": "^9.0.3",

@@ -24,7 +24,8 @@ export interface IRequestUser {
 }
 
 export interface IGoogleLoginPayload {
-	idToken: string;
+	idToken?: string;
+	token?: string;
 }
 
 export interface IForgotPasswordPayload {

@@ -8,6 +8,7 @@ export default {
 	port: process.env.PORT || 5000,
 	database_url: process.env.DATABASE_URL,
 	bak_url: process.env.backend_base_url,
+	frontend_url: process.env.FRONTEND_URL || "http://localhost:3000",
 
 	bcrypt_salt_rounds: Number(process.env.BCRYPT_SALT_ROUNDS) || 10,
 	jwt_access_secret:
@@ -37,4 +38,5 @@ export default {
 	bkash_app_key: process.env.BKASH_APP_KEY!,
 	bkash_app_secret: process.env.BKASH_APP_SECRET!,
 	bkash_callback_url: process.env.BKASH_CALLBACK_URL!,
+	google_client_id: process.env.GOOGLE_CLIENT_ID,
 };

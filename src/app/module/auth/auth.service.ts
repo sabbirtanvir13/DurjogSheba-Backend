@@ -5,6 +5,7 @@ import { prisma } from "../../lib/prisma";
 import { jwtUtils } from "../../utils/jwt";
 import type {
 	IForgotPasswordPayload,
+	IGoogleLoginPayload,
 	ILoginUserPayload,
 	IRegisterUserPayload,
 	IRequestUser,
@@ -16,7 +17,11 @@ import crypto from "crypto";
 import { transporter } from "../../lib/nodemailer";
 import ejs from "ejs";
 import path from "path";
-import { Role, UserStatus } from "../../../generated/prisma/enums";
+import { AuthProvider, Role, UserStatus } from "../../../generated/prisma/enums";
+import { type LoginTicket, OAuth2Client } from "google-auth-library";
+import { sendResponse } from "../../utils/sendResponse";
+
+const googleClient = new OAuth2Client(config.google_client_id);
 
 const registerUser = async (payload: IRegisterUserPayload) => {
 	const { name, password, phoneNumber } = payload;
@@ -206,15 +211,19 @@ const loginUser = async (payload: ILoginUserPayload) => {
 		where: { email },
 	});
 
-		if (user?.status === UserStatus.BLOCKED) {
-		throw new Error("User is Blocked")
-	}
-
-
 	if (!user) {
 		throw new Error("User not found");
 	}
 
+	if (user?.status === UserStatus.BLOCKED) {
+		throw new Error("User is Blocked");
+	}
+
+	if (!user.password) {
+		throw new Error(
+			"This account was registered using Google. Please log in with Google.",
+		);
+	}
 
 	const isPasswordMatched = await bcrypt.compare(password, user.password);
 
@@ -247,27 +256,104 @@ const loginUser = async (payload: ILoginUserPayload) => {
 	};
 };
 
-const googleLogin = async (payload: { email: string; name: string }) => {
-	const email = payload.email.trim().toLowerCase();
-	const name = payload.name;
+const googleLogin = async (payload: IGoogleLoginPayload) => {
+	const idToken = payload.idToken || payload.token;
 
-	let user = await prisma.user.findUnique({
-		where: { email },
+	if (!idToken) {
+		throw new Error("Google ID token is required");
+	}
+
+	let ticket: LoginTicket;
+	try {
+		ticket = await googleClient.verifyIdToken({
+			idToken,
+			audience: config.google_client_id,
+		});
+	} catch (error: any) {
+		throw new Error(
+			`Google token verification failed: ${error?.message || "Invalid token"}`,
+		);
+	}
+
+	const googlePayload = ticket.getPayload();
+	if (!googlePayload || !googlePayload.email) {
+		throw new Error("Invalid Google token payload: email missing");
+	}
+
+	const googleId = googlePayload.sub;
+	const email = googlePayload.email.trim().toLowerCase();
+	const name = googlePayload.name || email.split("@")[0];
+	const picture = googlePayload.picture;
+
+	let user = await prisma.user.findFirst({
+		where: {
+			OR: [{ googleId }, { email }],
+		},
 	});
 
-	if (!user) {
-		const dummyPassword = Math.random().toString(36).slice(-8);
-		const hashedPassword = await bcrypt.hash(dummyPassword, 10);
+	if (user?.status === UserStatus.BLOCKED) {
+		throw new Error("User is Blocked");
+	}
 
-		user = await prisma.user.create({
-			data: {
-				name,
-				email,
-				password: hashedPassword,
-				phoneNumber: "",
-				isVerified: true,
-			},
+	if (user?.isDeleted) {
+		throw new Error("User account has been deleted");
+	}
+
+	if (user) {
+		const updateData: {
+			googleId?: string;
+			imageUrl?: string;
+			isVerified?: boolean;
+		} = {};
+
+		if (!user.googleId) {
+			updateData.googleId = googleId;
+		}
+		if (!user.imageUrl && picture) {
+			updateData.imageUrl = picture;
+		}
+		if (!user.isVerified) {
+			updateData.isVerified = true;
+		}
+
+		if (Object.keys(updateData).length > 0) {
+			user = await prisma.user.update({
+				where: { id: user.id },
+				data: updateData,
+			});
+		}
+	} else {
+		const [createdUser] = await prisma.$transaction(async (tx: any) => {
+			const newUser = await tx.user.create({
+				data: {
+					name,
+					email,
+					googleId,
+					authProvider: AuthProvider.GOOGLE,
+					role: Role.DONOR,
+					isVerified: true,
+					imageUrl: picture || null,
+					phoneNumber: "",
+				},
+			});
+
+			await tx.donor.create({
+				data: {
+					userId: newUser.id,
+					name,
+					email,
+					phoneNumber: "",
+				},
+			});
+
+			return [newUser] as const;
 		});
+
+		user = createdUser;
+	}
+
+	if (!user) {
+		throw new Error("Failed to authenticate user");
 	}
 
 	const jwtPayload = {
@@ -289,8 +375,10 @@ const googleLogin = async (payload: { email: string; name: string }) => {
 		config.jwt_refresh_expires_in as SignOptions,
 	);
 
+	const { password: _, ...userWithoutPassword } = user as any;
+
 	return {
-		user,
+		user: userWithoutPassword,
 		accessToken,
 		refreshToken,
 	};
@@ -465,6 +553,14 @@ const ResetPasswrod = async (payload: IResetPasswordPayload) => {
 	});
 };
 
+
+const Logout = async () => {
+  
+    return {
+        message: "Logged out successfully",
+    };
+};
+
 export const AuthService = {
 	registerUser,
 	verifyDonorEmail,
@@ -474,4 +570,5 @@ export const AuthService = {
 	refreshToken,
 	ForgetPasswrod,
 	ResetPasswrod,
+	Logout
 };

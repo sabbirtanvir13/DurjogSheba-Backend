@@ -14,9 +14,11 @@ model User {
   id            String          @id @default(uuid())
   name          String
   email         String          @unique
-  password      String
-  phoneNumber   String
+  password      String?
+  phoneNumber   String?         @default("")
   role          Role            @default(DONOR)
+  googleId      String?         @unique
+  authProvider  AuthProvider    @default(CREDENTIAL)
   status       UserStatus @default(ACTIVE)
   isVerified    Boolean         @default(false)
   imageUrl      String?
@@ -37,7 +39,7 @@ model Donor {
   userId      String   @unique
   name        String
   email       String   @unique
-  phoneNumber String
+  phoneNumber String?  @default("")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -169,4 +171,9 @@ enum UserStatus {
   BLOCKED
   PENDING
   SUSPENDED
+}
+
+enum AuthProvider {
+  CREDENTIAL
+  GOOGLE
 }
